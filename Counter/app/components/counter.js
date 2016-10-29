@@ -1,36 +1,57 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet} from "react-native";
+import Button from "react-native-button";
+import {Actions} from "react-native-router-flux";
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../actions/counterActions.js';
 
 const styles = StyleSheet.create({
-  button: {
-    width: 100,
-    height: 30,
-    padding: 10,
-    backgroundColor: 'lightgray',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 3
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent"
   }
 });
 
-export default class Counter extends Component {
+class Counter extends React.Component {
+
   constructor(props) {
     super(props);
+    console.log('LAUNCH', props);
   }
 
-  render() {
-    const { counter, increment, decrement } = this.props;
+
+  render(){
+    const { state, actions } = this.props;
+
+    const { increment, decrement } = actions;
+
+    console.log("Actions", actions);
+    console.log("Props: ", this.props, state, increment, decrement);
+    console.log("Increment: ", increment);
 
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>{counter}</Text>
-        <TouchableOpacity onPress={increment} style={styles.button}>
-          <Text>up</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={decrement} style={styles.button}>
-          <Text>down</Text>
-        </TouchableOpacity>
-      </View>
+        <View  style={styles.container}>
+          <Text>Login page: {this.props.data}</Text>
+          <Text>{state.count}</Text>
+
+          <Button onPress={increment}>Increment</Button>
+
+          <Button onPress={Actions.pop}>Back</Button>
+
+        </View>
     );
   }
 }
+
+
+export default connect(state => ({
+      state: state.counter
+    }),
+    (dispatch) => ({
+      actions: bindActionCreators(actions, dispatch)
+    })
+)(Counter);
