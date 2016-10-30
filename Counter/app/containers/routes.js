@@ -13,7 +13,7 @@ import { bindActionCreators } from 'redux';
 
 import * as reducers from '../reducers';
 import * as actions from '../actions/counterActions.js';
-
+import AppNavigator from '../containers/AppNavigator';
 
 class Right extends React.Component {
     render(){
@@ -53,15 +53,7 @@ class Routes extends React.Component {
         const { state, actions } = this.props;
         console.log("Props", this.props, state, actions); // everything ok here
 
-        return <Router createReducer={reducerCreate}>
-            <Scene key="modal" component={Modal} >
-                <Scene key="root" hideNavBar={true}>
-                    <Scene key="launch" component={Counter} title="Launch" initial={true} />
-                    <Scene key="home" component={Home} title="Home" />
-                    <Scene key="store" component={StoryStore} title="StoryStore" />
-                </Scene>
-            </Scene>
-        </Router>;
+        return <AppNavigator/>
     }
 }
 

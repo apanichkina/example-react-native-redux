@@ -1,11 +1,21 @@
-import React from 'react-native';
-import Drawer from 'react-native-drawer';
-import SideMenu from './SideMenu';
+import React, {
+    Component
+    } from 'react-native'
+import {
+    PropTypes,
+    StyleSheet,
+    Text,
+    View,
+    } from 'react-native'
+
+import Drawer from 'react-native-drawer'
+
 import {Actions, DefaultRenderer} from 'react-native-router-flux';
 import Counter from '../components/counter.js'
 import Home from '../components/Home.js'
-
-export default class extends Component {
+import StoryStore from '../components/StoryStore.js'
+import SideBar from '../components/SideBar/';
+export default class extends React.Component {
 render(){
     const state = this.props.navigationState;
     const children = state.children;
@@ -16,7 +26,7 @@ open={state.open}
 onOpen={()=>Actions.refresh({key:state.key, open: true})}
 onClose={()=>Actions.refresh({key:state.key, open: false})}
 type="displace"
-content={<SideMenu />}
+content={<SideBar />}
 tapToClose={true}
 openDrawerOffset={0.2}
 panCloseMask={0.2}
@@ -32,10 +42,13 @@ main: { opacity:Math.max(0.54,1-ratio) }
 
 /// then wrap your tabs scene with Drawer:
 <Scene key="drawer" component={Drawer} open={false} >
-<Scene key="main" tabs={true} >
-    <Scene key="launch" component={Counter} title="Launch"/>
-    <Scene key="home" component={Home} title="Home" />
-</Scene>
+    <Scene key="modal" component={Modal} >
+        <Scene key="root" hideNavBar={true}>
+            <Scene key="launch" component={Counter} title="Launch" initial={true} />
+            <Scene key="home" component={Home} title="Home" />
+            <Scene key="store" component={StoryStore} title="StoryStore" />
+        </Scene>
+    </Scene>
   </Scene>
 
 // then you could open/hide/toggle drawer anywhere using 'refresh' modifiers:
