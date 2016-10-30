@@ -1,12 +1,12 @@
 import * as types from './actionTypes';
 
-export function increment() {
+export function increment():Action {
   return {
     type: types.INCREMENT
   };
 }
 
-export function decrement() {
+export function decrement():Action {
   return {
     type: types.DECREMENT
   };

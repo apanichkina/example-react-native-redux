@@ -9,21 +9,21 @@ import sidebarTheme from './sidebar-theme';
 import styles from './style';
 
 const drawerCover = require('../../../img/pepa.jpeg');
-const drawerImage = require('../../../img/3kota.jpeg');
+const drawerImage = require('../../../img/logo.png');
 
 class SideBar extends Component {
 
     static propTypes = {
         closeDrawer: React.PropTypes.func,
         replaceOrPushRoute: React.PropTypes.func,
-        drawerState: React.PropTypes.string,  //eslint-disable-line
-    }
+        drawerState: React.PropTypes.string  //eslint-disable-line
+    };
 
     constructor(props) {
         super(props);
         this.state = {
             shadowOffsetWidth: 1,
-            shadowRadius: 4,
+            shadowRadius: 4
         };
     }
 
@@ -38,28 +38,37 @@ class SideBar extends Component {
                 theme={sidebarTheme}
                 style={styles.sidebar}
                 >
-                <Image source={drawerCover} style={styles.drawerCover}>
+                <View  style={styles.drawerCover}>
                     <Image
                         square
                         style={styles.drawerImage}
                         source={drawerImage}
                         />
-                </Image>
+                    <Text>Лучший родитель на свете</Text>
+                </View>
                 <List>
                     <ListItem button iconLeft onPress={() => this.navigateTo('anatomy')} >
                         <View style={styles.listItemContainer}>
-                            <View style={[styles.iconContainer, { backgroundColor: '#0209D8', paddingLeft: 14 }]}>
-                                <Icon name="ios-phone-portrait-outline" style={styles.sidebarIcon} />
+                            <View style={[styles.iconContainer, { paddingLeft: 14 }]}>
+                                <Icon name="ios-browsers" style={styles.sidebarIcon} />
                             </View>
-                            <Text style={styles.text}>Anatomy</Text>
+                            <Text style={styles.text}>Пример tab снизу</Text>
                         </View>
                     </ListItem>
-                    <ListItem button iconLeft onPress={() => this.navigateTo('counter')} >
+                    <ListItem button iconLeft onPress={() => this.navigateTo('store')} >
                         <View style={styles.listItemContainer}>
-                            <View style={[styles.iconContainer, { backgroundColor: '#0209D8', paddingLeft: 14 }]}>
-                                <Icon name="ios-phone-portrait-outline" style={styles.sidebarIcon} />
+                            <View style={[styles.iconContainer, { paddingLeft: 14 }]}>
+                                <Icon name="ios-cart" style={styles.sidebarIcon} />
                             </View>
-                            <Text style={styles.text}>Counter</Text>
+                            <Text style={styles.text}>Магазин сказок</Text>
+                        </View>
+                    </ListItem>
+                    <ListItem button iconLeft onPress={() => this.navigateTo('bears')} >
+                        <View style={styles.listItemContainer}>
+                            <View style={[styles.iconContainer, { paddingLeft: 14 }]}>
+                                <Icon name="ios-paw" style={styles.sidebarIcon} />
+                            </View>
+                            <Text style={styles.text}>Примедведиться</Text>
                         </View>
                     </ListItem>
 

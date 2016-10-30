@@ -9,8 +9,10 @@ import { popRoute } from '../actions/route';
 
 import Home from '../components/Home';
 import Anatomy from '../components/Anatomy/';
-import Store from '../components/StoryStore';
+import Store from '../components/Store/';
 import Counter from '../components/counter';
+import Bears from '../components/Bears/';
+
 import SideBar from '../components/SideBar/';
 //import statusBarColor from './themes/base-theme';
 
@@ -27,7 +29,7 @@ Navigator.prototype.replaceWithAnimation = function replaceWithAnimation(route) 
     this._emitWillFocus(nextStack[destIndex]);
     this.setState({
         routeStack: nextStack,
-        sceneConfigStack: nextAnimationConfigStack,
+        sceneConfigStack: nextAnimationConfigStack
     }, () => {
         this._enableScene(destIndex);
         this._transitionTo(destIndex, nextSceneConfig.defaultTransitionVelocity, null, () => {
@@ -43,7 +45,7 @@ class AppNavigator extends Component {
     static propTypes = {
         drawerState: React.PropTypes.string,
         popRoute: React.PropTypes.func,
-        closeDrawer: React.PropTypes.func,
+        closeDrawer: React.PropTypes.func
     }
 
     componentDidMount() {
@@ -96,6 +98,8 @@ class AppNavigator extends Component {
                 return <Store navigator={navigator} />;
             case 'counter':
                 return <Counter navigator={navigator} />;
+            case 'bears':
+                return <Bears navigator={navigator} />;
             default :
                 return <Home navigator={navigator} />;
         }
@@ -117,15 +121,15 @@ class AppNavigator extends Component {
           drawer: {
             shadowColor: '#000000',
             shadowOpacity: 0.8,
-            shadowRadius: 3,
-          },
+            shadowRadius: 3
+          }
         }}
                 tweenHandler={(ratio) => {
           return {
             drawer: { shadowRadius: ratio < 0.2 ? ratio * 5 * 5 : 5 },
             main: {
-              opacity: (2 - ratio) / 2,
-            },
+              opacity: (2 - ratio) / 2
+            }
           };
         }}
                 negotiatePan
@@ -148,11 +152,11 @@ class AppNavigator extends Component {
 
 const bindAction = dispatch => ({
     closeDrawer: () => dispatch(closeDrawer()),
-    popRoute: () => dispatch(popRoute()),
+    popRoute: () => dispatch(popRoute())
 });
 
 const mapStateToProps = state => ({
-    drawerState: state.drawer.drawerState,
+    drawerState: state.drawer.drawerState
 });
 
 export default connect(mapStateToProps, bindAction)(AppNavigator);

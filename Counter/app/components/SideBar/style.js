@@ -13,6 +13,7 @@ module.exports = StyleSheet.create({
     drawerCover: {
         alignSelf: 'stretch',
         // resizeMode: 'cover',
+        backgroundColor: '#B39DDB',
         height: deviceHeight / 3.5,
         width: null,
         position: 'relative',
@@ -24,8 +25,7 @@ module.exports = StyleSheet.create({
         left: (Platform.OS === 'android') ? deviceWidth / 10 : deviceWidth / 9,
         // top: (Platform.OS === 'android') ? 45 : 55,
         top: (Platform.OS === 'android') ? deviceHeight / 13 : deviceHeight / 12,
-        width: 210,
-        height: 75,
+        width: 97,
         resizeMode: 'cover',
     },
     listItemContainer: {
@@ -39,11 +39,12 @@ module.exports = StyleSheet.create({
         borderRadius: 18,
         marginRight: 12,
         paddingLeft: 11,
+        backgroundColor: '#fff',
         paddingTop: (Platform.OS === 'android') ? 7 : 5,
     },
     sidebarIcon: {
         fontSize: 21,
-        color: '#fff',
+        color: '#000000',
         lineHeight: 25,
         backgroundColor: 'transparent',
     },

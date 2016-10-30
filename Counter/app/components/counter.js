@@ -1,11 +1,13 @@
 import React from 'react';
-import {View, Text, StyleSheet} from "react-native";
-import Button from "react-native-button";
-import {Actions} from "react-native-router-flux";
+import {View, StyleSheet} from "react-native";
+import { Container, Header, Title, Content, Text, Button, Icon } from 'native-base';
+import myTheme from '../themes/base-theme';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../actions/counterActions.js';
+import { increment } from '../actions/counterActions.js';
+import { openDrawer, closeDrawer } from '../actions/drawer';
+import { popRoute } from '../actions/route';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,34 +22,56 @@ class Counter extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log('LAUNCH', props);
   }
-
+    static propTypes = {
+        openDrawer: React.PropTypes.func,
+        closeDrawer: React.PropTypes.func,
+        popRoute: React.PropTypes.func,
+        increment: React.PropTypes.func
+    };
+    popRoute() {
+        this.props.popRoute();
+    }
 
   render(){
-    const { state, actions } = this.props;
-
-    const { increment, decrement } = actions;
-
-    console.log("Actions", actions);
-    console.log("Props: ", this.props, state, increment, decrement);
-    console.log("Increment: ", increment);
-
+    const { state } = this.props;
     return (
-        <View  style={styles.container}>
-          <Text>Counter: {this.props.data}</Text>
-          <Text>{state.count}</Text>
-          <Button onPress={increment}>Increment</Button>
-        </View>
+    <Container theme={myTheme} style={styles.container}>
+
+        <Header>
+            <Button transparent onPress={()=>this.popRoute()}>
+                <Icon name="ios-arrow-round-back" />
+            </Button>
+            <Title>Counter</Title>
+        </Header>
+
+        <Content>
+            <View  style={styles.container}>
+                <Text>Counter: {this.props.data}</Text>
+                <Text>{state.count}</Text>
+                <Button onPress={this.props.increment}>Increment</Button>
+            </View>
+        </Content>
+
+    </Container>
+
     );
   }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        state: state.counter
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        increment: () => dispatch(increment()),
+        openDrawer: () => dispatch(openDrawer()),
+        popRoute: () => dispatch(popRoute()),
+        closeDrawer: () => dispatch(closeDrawer())
+    }
+}
 
-export default connect(state => ({
-      state: state.counter
-    }),
-    (dispatch) => ({
-      actions: bindActionCreators(actions, dispatch)
-    })
-)(Counter);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);

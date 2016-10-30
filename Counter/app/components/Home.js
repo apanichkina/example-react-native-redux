@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { openDrawer } from '../actions/drawer';
 import { popRoute, pushNewRoute } from '../actions/route';
 import AppNavigator from '../containers/AppNavigator'
+import myTheme from '../themes/base-theme';
 class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -25,7 +26,7 @@ class Home extends React.Component {
     }
     render() {
         return (
-            <Container>
+            <Container theme={myTheme}>
                 <Header>
                     <Button transparent onPress={this.props.openDrawer}>
                         <Icon name="ios-menu" />
@@ -38,11 +39,9 @@ class Home extends React.Component {
                         <Text>Home Page</Text>
 
                     </View>
-                    <Button style={{ backgroundColor: '#6FAF98', alignSelf: 'center' }} onPress={() => this.pushNewRoute('store')}>Go to Store</Button>
+                    <Button style={{ backgroundColor: '#6FAF98', alignSelf: 'center' }} onPress={() => this.pushNewRoute('counter')}>Counter</Button>
                 </Content>
 
-                <Footer>
-                </Footer>
             </Container>
         );
     }

@@ -3,8 +3,6 @@ import {AppRegistry, Navigator, StyleSheet, Text, View} from 'react-native'
 
 import Counter from '../components/counter.js'
 import Home from '../components/Home.js'
-import StoryStore from '../components/StoryStore.js'
-import {Scene, Reducer, Router, Switch, TabBar, Modal, Schema, Actions} from 'react-native-router-flux'
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';

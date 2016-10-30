@@ -4,7 +4,7 @@ import { Container, Header, Title, Content, Text, H3, Button, Icon, Footer, Foot
 
 import { openDrawer, closeDrawer } from '../../actions/drawer';
 import { replaceRoute, replaceOrPushRoute } from '../../actions/route';
-//import myTheme from '../../themes/base-theme';
+import myTheme from '../../themes/base-theme';
 import styles from './styles';
 
 class Anatomy extends Component {
@@ -71,7 +71,7 @@ class Anatomy extends Component {
 
     render() {
         return (
-            <Container  style={styles.container}>
+            <Container theme={myTheme} style={styles.container}>
 
                 <Header>
                     <Button transparent onPress={this.props.openDrawer}>
