@@ -39,7 +39,8 @@ class Counter extends React.Component {
           <Text>{state.count}</Text>
 
           <Button onPress={increment}>Increment</Button>
-
+          <Button onPress={Actions.home}>Go home</Button>
+            <Button onPress={Actions.store}>StoryStore</Button>
           <Button onPress={Actions.pop}>Back</Button>
 
         </View>

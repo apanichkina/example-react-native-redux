@@ -2,10 +2,9 @@ import React from 'react';
 import {AppRegistry, Navigator, StyleSheet, Text, View} from 'react-native'
 
 import Counter from '../components/counter.js'
-import Login from '../components/Login'
+import Home from '../components/Home.js'
+import StoryStore from '../components/StoryStore.js'
 import {Scene, Reducer, Router, Switch, TabBar, Modal, Schema, Actions} from 'react-native-router-flux'
-
-
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -58,6 +57,8 @@ class Routes extends React.Component {
             <Scene key="modal" component={Modal} >
                 <Scene key="root" hideNavBar={true}>
                     <Scene key="launch" component={Counter} title="Launch" initial={true} />
+                    <Scene key="home" component={Home} title="Home" />
+                    <Scene key="store" component={StoryStore} title="StoryStore" />
                 </Scene>
             </Scene>
         </Router>;
