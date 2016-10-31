@@ -5,24 +5,27 @@ import { Container, Content, Card, CardItem, Text, View, Thumbnail } from 'nativ
 
 import styles from './styles';
 import { connect } from 'react-redux';
-import { popRoute } from '../../actions/route';
+import { popRoute, pushNewRoute } from '../../actions/route';
 
 class TabOne extends Component { // eslint-disable-line
   static propTypes = {
-    popRoute: React.PropTypes.func
+    popRoute: React.PropTypes.func,
+    pushNewRoute: React.PropTypes.func
   }
 
   popRoute() {
     this.props.popRoute();
   }
-
+  pushNewRoute(route) {
+    this.props.pushNewRoute(route);
+  }
   themes = [
     {
       name: 'Свинка Пепка',
       image: require('../../../img/pepa.jpeg'),
       duration: '20:30',
       price: 20,
-      route: ()=>{this.popRoute()}
+      route: ()=>{this.pushNewRoute('story-profile')}
     },
     {
       name: 'Три Кота',
@@ -54,7 +57,8 @@ class TabOne extends Component { // eslint-disable-line
 }
 function bindAction(dispatch) {
   return {
-    popRoute: () => dispatch(popRoute())
+    popRoute: () => dispatch(popRoute()),
+    pushNewRoute: route => dispatch(pushNewRoute(route))
   };
 }
 

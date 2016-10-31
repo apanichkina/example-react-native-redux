@@ -49,8 +49,11 @@ class Bears extends Component {
                             </ListItem>
                         }>
                     </List>
+                    <Button style={styles.btn_search}>
+                        <Icon name='ios-search' />
+                        Найти
+                    </Button>
                 </Content>
-
             </Container>
         );
     }
