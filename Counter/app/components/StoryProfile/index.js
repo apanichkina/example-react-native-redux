@@ -40,7 +40,7 @@ class SliderContainer extends React.Component{
         var value = sliderVal;
         return React.cloneElement(child, {
           value: value,
-          onValueChange: (val) => sliderVal={val}
+          onValueChange: (val) => sliderVal=val
         });
       } else {
         return child;
@@ -67,7 +67,7 @@ class SProfile extends Component {
       duration: '20:30',
       price: '20',
       year: '2004',
-      category: 'edu',
+      category: 'fun',
       description: 'Пеппа – маленькая забавная свинка, которая живет вместе с мамой Свинкой, папой Свином и младшим ' +
       'братиком Джорджем. Несмотря на то, что все они свинки, семья Пеппы живет в обычном доме, а ее родители ходят ' +
       'на работу. Пеппе четыре года, она обожает прыгать по лужам и гулять со своей лучше подружкой, овечкой Сьюзи. ' +

@@ -12,6 +12,7 @@ import Anatomy from '../components/Anatomy/';
 import Store from '../components/Store/';
 import Counter from '../components/counter';
 import Bears from '../components/Bears/';
+import Profile from '../components/Profile/';
 import StoryProfile from '../components/StoryProfile/';
 import SideBar from '../components/SideBar/';
 //import statusBarColor from './themes/base-theme';
@@ -102,6 +103,8 @@ class AppNavigator extends Component {
                 return <Bears navigator={navigator} />;
             case 'story-profile':
                 return <StoryProfile navigator={navigator} />;
+            case 'profile':
+                return <Profile navigator={navigator} />;
             default :
                 return <Home navigator={navigator} />;
         }
