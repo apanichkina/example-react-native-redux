@@ -10,7 +10,7 @@ import styles from './styles';
 import myTheme from '../../themes/base-theme';
 var Slider = require('react-native-slider');
 
-const isAuth = false;
+const isAuth = true;
 const logo_fun = 'ios-happy-outline';
 const logo_edu = 'ios-school-outline';
 const logo_helper = 'ios-ionitron-outline';
@@ -80,7 +80,7 @@ class SProfile extends Component {
       image: require('../../../img/3kota.jpeg'),
       duration: '20:30',
       price: '20',
-      route: ()=>{this.popRoute()}
+      route: ()=>{this.pushNewRoute('story-profile')}
     }
   ];
 
@@ -89,10 +89,10 @@ class SProfile extends Component {
     return (
       <Container theme={myTheme} style={styles.container}>
         <Header>
-          <Title>Card</Title>
+          <Title>Сказка</Title>
 
-          <Button transparent onPress={this.props.openDrawer}>
-            <Icon name="ios-menu" />
+          <Button transparent onPress={()=>this.popRoute()}>
+            <Icon name="ios-arrow-back" />
           </Button>
         </Header>
 

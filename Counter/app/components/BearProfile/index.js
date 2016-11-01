@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Header, Title, Content, Text, List, ListItem, Radio, Button, Icon } from 'native-base';
+import { Container, Header, Title, Content, Text, List, ListItem, Button, Icon, InputGroup, Input, View, Tabs } from 'native-base';
 
 import { openDrawer, closeDrawer } from '../../actions/drawer';
-import { pushNewRoute } from '../../actions/route';
+import { popRoute } from '../../actions/route';
 import styles from './styles';
 import myTheme from '../../themes/base-theme';
-class Bears extends Component {
+import TabOne from './storyPage';
+import TabTwo from './alarmPage';
+import TabThree from './helperPage.js';
+
+class BProfile extends Component {
 
     static propTypes = {
         openDrawer: React.PropTypes.func,
         closeDrawer: React.PropTypes.func,
-        pushNewRoute: React.PropTypes.func
+        popRoute: React.PropTypes.func
     };
-
+    popRoute() {
+        this.props.popRoute();
+    }
     constructor(props) {
         super(props);
     }
-    pushNewRoute(route) {
-        this.props.pushNewRoute(route);
-    }
-
-    items = [
+    bears = [
         {
             name: 'Потапыч',
             selected: true,
@@ -43,25 +45,21 @@ class Bears extends Component {
             <Container theme={myTheme} style={styles.container}>
 
                 <Header>
-                    <Button transparent onPress={this.props.openDrawer}>
-                        <Icon name="ios-menu" />
+                    <Button transparent onPress={()=>this.popRoute()}>
+                        <Icon name="ios-arrow-back" />
                     </Button>
-                    <Title>Примедведиться</Title>
+                    <Title>{this.bears[0].name}</Title>
+                    <Button transparent onPress={()=>this.popRoute()}>
+                        <Icon name="ios-settings" />
+                    </Button>
                 </Header>
 
                 <Content>
-                    <List dataArray={this.items}
-                          renderRow={(item) =>
-                            <ListItem button onPress={item.route}>
-                                <Radio selected={item.selected} />
-                                <Text>{item.name}</Text>
-                            </ListItem>
-                        }>
-                    </List>
-                    <Button style={styles.btn_search}>
-                        <Icon name='ios-search' />
-                        Найти
-                    </Button>
+                    <Tabs locked>
+                        <TabOne tabLabel="Сказки" />
+                        <TabTwo tabLabel="Будильник" />
+                        <TabThree tabLabel="Помощник" />
+                    </Tabs>
                 </Content>
             </Container>
         );
@@ -72,8 +70,8 @@ function bindAction(dispatch) {
     return {
         openDrawer: () => dispatch(openDrawer()),
         closeDrawer: () => dispatch(closeDrawer()),
-        pushNewRoute: route => dispatch(pushNewRoute(route))
+        popRoute: () => dispatch(popRoute())
     };
 }
 
-export default connect(null, bindAction)(Bears);
+export default connect(null, bindAction)(BProfile);

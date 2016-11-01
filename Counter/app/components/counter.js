@@ -40,7 +40,7 @@ class Counter extends React.Component {
 
         <Header>
             <Button transparent onPress={()=>this.popRoute()}>
-                <Icon name="ios-arrow-round-back" />
+                <Icon name="ios-arrow-back" />
             </Button>
             <Title>Counter</Title>
         </Header>

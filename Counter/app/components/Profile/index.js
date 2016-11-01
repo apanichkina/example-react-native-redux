@@ -15,20 +15,7 @@ class Profile extends Component {
     constructor(props) {
         super(props);
     }
-    items = [
-        {
-            name: 'Потапыч',
-            selected: true
-        },
-        {
-            name: 'Копатыч',
-            selected: false
-        },
-        {
-            name: 'Медведич',
-            selected: false
-        }
-    ];
+    
     render() {
         return (
             <Container theme={myTheme} style={styles.container}>
@@ -42,12 +29,10 @@ class Profile extends Component {
 
                 <Content style={{padding: 16}}>
                     <Text style={{ color: '#00C497' }} >Залогинен</Text>
-                            <View style={{ flexDirection:'row'}}>
-                                <Text style={{ flex:3, paddingTop: 5}} >Возраст ребенка</Text>
-                            <InputGroup style={{ flex:1}}>
+                                <Text style={{  paddingTop: 5}} >Возраст ребенка</Text>
+                            <InputGroup>
                                 <Input placeholder='2' />
                             </InputGroup>
-                            </View>
                 </Content>
             </Container>
         );

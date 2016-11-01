@@ -9,7 +9,7 @@ import myTheme from '../../themes/base-theme';
 
 import TabOne from './storePage';
 
-class NHTabs extends Component {
+class Store extends Component {
 
   static propTypes = {
     openDrawer: React.PropTypes.func
@@ -45,4 +45,4 @@ function bindAction(dispatch) {
   };
 }
 
-export default connect(null, bindAction)(NHTabs);
+export default connect(null, bindAction)(Store);
