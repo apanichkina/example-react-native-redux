@@ -6,11 +6,18 @@ import { Container, Content, Card, CardItem, Text, View, Thumbnail } from 'nativ
 import styles from './styles';
 import { connect } from 'react-redux';
 import { popRoute, pushNewRoute } from '../../actions/route';
-
+import { buyStory } from '../../actions/store';
+import Story from './story'
 class TabOne extends Component { // eslint-disable-line
   static propTypes = {
     popRoute: React.PropTypes.func,
-    pushNewRoute: React.PropTypes.func
+    pushNewRoute: React.PropTypes.func,
+    stories: React.PropTypes.arrayOf(React.PropTypes.shape({
+      id: React.PropTypes.number.isRequired,
+      bought: React.PropTypes.bool.isRequired,
+      name: React.PropTypes.string.isRequired
+    }).isRequired).isRequired,
+    onStoryClick: React.PropTypes.func.isRequired
   }
 
   popRoute() {
@@ -18,6 +25,9 @@ class TabOne extends Component { // eslint-disable-line
   }
   pushNewRoute(route) {
     this.props.pushNewRoute(route);
+  }
+  onStoryClick(id) {
+    this.props.onStoryClick(id);
   }
   themes = [
     {
@@ -37,29 +47,41 @@ class TabOne extends Component { // eslint-disable-line
   ];
 
   render() { // eslint-disable-line
+    const { stories } = this.props;
     return (
       <Container style={styles.container}>
         <Content padder>
-          <Card dataArray={this.themes}
-                renderRow={(theme) =>
-                            <CardItem button onPress={theme.route}>
-                                <Thumbnail square size={100} source={theme.image} />
-                                <Text>{theme.name}</Text>
-                                <Text note>Длительность: {theme.duration}</Text>
-                                <Text note>Цена: {theme.price}</Text>
-                            </CardItem>
-                        }>
+          <Card>
+            {stories.map(story =>
+            <Story
+                key={story.id}
+                {...story}
+                onClick={() => this.onStoryClick((story.id))}
+                />
+            )}
           </Card>
         </Content>
       </Container>
     );
   }
 }
-function bindAction(dispatch) {
+
+const mapStateToProps = (state) => {
   return {
+    stories: state.store.stories
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onStoryClick: id => dispatch(buyStory(id)),
     popRoute: () => dispatch(popRoute()),
     pushNewRoute: route => dispatch(pushNewRoute(route))
-  };
-}
+  }
+};
 
-export default connect(null, bindAction)(TabOne);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TabOne)

@@ -6,6 +6,7 @@ export Action =
     | { type: 'REPLACE_OR_PUSH_ROUTE', route: string }
     | { type: 'OPEN_DRAWER'}
     | { type: 'CLOSE_DRAWER'}
+    | { type: 'SET_VISIBILITY_FILTER'}
 
 export Dispatch = (action:Action | Array<Action>) => any;
 export type GetState = () => Object;

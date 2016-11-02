@@ -9,6 +9,8 @@ import { increment } from '../actions/counterActions.js';
 import { openDrawer, closeDrawer } from '../actions/drawer';
 import { popRoute } from '../actions/route';
 
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -31,6 +33,9 @@ class Counter extends React.Component {
     };
     popRoute() {
         this.props.popRoute();
+    }
+    componentDidMount() {
+
     }
 
   render(){
