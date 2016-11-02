@@ -1,13 +1,13 @@
 
 import React, { Component } from 'react';
 
-import { Container, Content, Card, CardItem, Text, View, Thumbnail, List, ListItem, Icon } from 'native-base';
-
+import { Container, Content, Card, CardItem, Text, View, Thumbnail, List, ListItem, Icon, Button } from 'native-base';
+import { TouchableHighlight, Image} from "react-native";
 import styles from './styles';
 import { connect } from 'react-redux';
 import { popRoute, pushNewRoute } from '../../actions/route';
 import ActionButton from 'react-native-action-button';
-
+import myTheme from '../../themes/base-theme';
 class TabOne extends Component { // eslint-disable-line
   static propTypes = {
     popRoute: React.PropTypes.func,
@@ -56,14 +56,9 @@ class TabOne extends Component { // eslint-disable-line
 
   render() { // eslint-disable-line
     return (
-      <Container >
-        <Content padder slyles={{flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'}}>
-
-            <List style={{
-    backgroundColor: 'red'}}>
+      <Container theme={myTheme} style={styles.container}>
+        <Content padder>
+            <List  style={{ zIndex: 10}}>
             <ListItem itemDivider>
               <Text>Образовательные</Text>
             </ListItem>
@@ -90,16 +85,15 @@ class TabOne extends Component { // eslint-disable-line
                             </CardItem>
                         }>
             </Card>
-
           </List>
-            <View style={{width: 100,height: 200,top: 250,left: 50,position: 'absolute'}}>
-            <ActionButton
-                buttonColor="#1abc9c"
-                onPress={() => { console.log("hi")}}
-                >
-            </ActionButton>
-                </View>
+            <TouchableHighlight style={styles.addButton} underlayColor='#F06292' onPress={()=>{console.log('pressed')}}>
+                <Image
+                    style={{height: 24, width: 24}}
+                    source={require('../../../img/plus.png')}
+                    />
+            </TouchableHighlight>
         </Content>
+
       </Container>
     );
   }

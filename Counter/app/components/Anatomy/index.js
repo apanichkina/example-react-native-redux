@@ -13,7 +13,7 @@ class Anatomy extends Component {
         openDrawer: React.PropTypes.func,
         closeDrawer: React.PropTypes.func,
         replaceRoute: React.PropTypes.func,
-        replaceOrPushRoute: React.PropTypes.func,
+        replaceOrPushRoute: React.PropTypes.func
     }
 
     constructor(props) {
@@ -22,7 +22,7 @@ class Anatomy extends Component {
             tab1: false,
             tab2: false,
             tab3: true,
-            tab4: false,
+            tab4: false
         };
     }
     replaceRoute(route) {
@@ -34,7 +34,7 @@ class Anatomy extends Component {
             tab1: true,
             tab2: false,
             tab3: false,
-            tab4: false,
+            tab4: false
         });
     }
 
@@ -43,7 +43,7 @@ class Anatomy extends Component {
             tab1: false,
             tab2: true,
             tab3: false,
-            tab4: false,
+            tab4: false
         });
     }
 
@@ -52,7 +52,7 @@ class Anatomy extends Component {
             tab1: false,
             tab2: false,
             tab3: true,
-            tab4: false,
+            tab4: false
         });
     }
 
@@ -61,7 +61,7 @@ class Anatomy extends Component {
             tab1: false,
             tab2: false,
             tab3: false,
-            tab4: true,
+            tab4: true
         });
     }
     navigateTo(route) {
@@ -83,6 +83,37 @@ class Anatomy extends Component {
                 <Content padder>
                     <H3>This is content section</H3>
                     <Text style={{marginTop: 10}}>Selected tab is: {this.state.tab1 ? 1 : this.state.tab2 ? 2 : this.state.tab3 ? 3 : 4}</Text>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+                    <H3>This is content section</H3>
+
+
+
+
+
+
                 </Content>
 
                 <Footer >
@@ -115,7 +146,7 @@ function bindAction(dispatch) {
         openDrawer: () => dispatch(openDrawer()),
         closeDrawer: () => dispatch(closeDrawer()),
         replaceRoute: route => dispatch(replaceRoute(route)),
-        replaceOrPushRoute: route => dispatch(replaceOrPushRoute(route)),
+        replaceOrPushRoute: route => dispatch(replaceOrPushRoute(route))
     };
 }
 

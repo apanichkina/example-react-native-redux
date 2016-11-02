@@ -10,9 +10,27 @@ module.exports = StyleSheet.create({
         zIndex: 100
     },
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#FBFAFA'
     },
+    addButton: {
+        backgroundColor: '#F06292',
+        borderColor: '#F06292',
+        borderWidth: 1,
+        height: 50,
+        width: 50,
+        bottom:16,
+        right:16,
+        borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        shadowColor: "#000000",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        zIndex: 100,
+        shadowOffset: {
+            height: 1,
+            width: 0
+        }
+    }
 });

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Header, Title, Content, Text, List, ListItem, Button, Icon, InputGroup, Input, View, Tabs } from 'native-base';
-
+import { Container, Header, Title, Content, Text, List, ListItem, Button, Icon, InputGroup, Input, View, Tabs, Footer } from 'native-base';
+import { TouchableHighlight, Image} from "react-native";
 import { openDrawer, closeDrawer } from '../../actions/drawer';
 import { popRoute } from '../../actions/route';
 import styles from './styles';
@@ -9,6 +9,7 @@ import myTheme from '../../themes/base-theme';
 import TabOne from './storyPage';
 import TabTwo from './alarmPage';
 import TabThree from './helperPage.js';
+import ActionButton from 'react-native-action-button';
 
 class BProfile extends Component {
 
@@ -62,6 +63,7 @@ class BProfile extends Component {
                     </Tabs>
                 </Content>
             </Container>
+
         );
     }
 }

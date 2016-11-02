@@ -59,7 +59,7 @@ export default function (state = initialState, action={}) {
                 // keep popping till you get to the route
             }
             return {
-                routes: [...routes, action.route],
+                routes: [...routes, action.route]
             };}
         default:
             return state;
