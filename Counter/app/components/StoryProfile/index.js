@@ -6,6 +6,7 @@ import { Container, Header, Title, Content, Button, Icon, Card, CardItem, Text, 
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { openDrawer } from '../../actions/drawer';
 import { popRoute } from '../../actions/route';
+import { buyStory } from '../../actions/store';
 import styles from './styles';
 import myTheme from '../../themes/base-theme';
 var Slider = require('react-native-slider');
@@ -58,6 +59,9 @@ class SProfile extends Component {
   popRoute() {
     this.props.popRoute();
   }
+  buyStory(id) {
+    this.props.buyStory(id);
+  }
 
 
   themes = [
@@ -86,6 +90,7 @@ class SProfile extends Component {
 
 
   render() {
+    const { story } = this.props;
     return (
       <Container theme={myTheme} style={styles.container}>
         <Header>
@@ -105,7 +110,7 @@ class SProfile extends Component {
                     <Icon name={logo_fun} />
                   : <Icon name={logo_edu} />
               }
-              <Text>{this.themes[0].name}</Text>
+              <Text>{story.name}</Text>
               <Text note>{this.themes[0].year}</Text>
             </CardItem>
 
@@ -133,7 +138,7 @@ class SProfile extends Component {
               </View>
               {/* <Text style={{ paddingTop: 8, flex:1, fontSize: 15 }}>{this.themes[0].duration}</Text> */}
               <View style={{ flexDirection:'row'  }}>
-                {isAuth ? <View style={{ flexDirection:'row',flex: 2}}>
+                {story.bought ? <View style={{ flexDirection:'row',flex: 2}}>
                             <Button style={{ margin: 6, flex:1}} >
                               <Icon name="ios-cloud-upload" />
                             </Button>
@@ -141,7 +146,8 @@ class SProfile extends Component {
                               <Icon name="ios-trash" />
                             </Button>
                           </View>
-                        : <Button style={{ margin: 6, flex: 2}} >
+                        : <Button style={{ margin: 6, flex: 2}}
+                                  onPress={() => this.buyStory((story.id))}>
                             <Icon name="ios-basket" />
                             <Text style={{ color: '#fff'}}>{this.themes[0].price} руб.</Text>
                           </Button>
@@ -161,11 +167,25 @@ class SProfile extends Component {
   }
 }
 
-function bindAction(dispatch) {
+const getStoryById = (stories, id) => {
+  let storyArr = stories.filter(t => t.id === id);
+  return storyArr[0]
+};
+const mapStateToProps = (state) => {
   return {
+    story: getStoryById(state.store.stories,state.story.storyId)
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    buyStory: id => dispatch(buyStory(id)),
     openDrawer: () => dispatch(openDrawer()),
     popRoute: () => dispatch(popRoute())
-  };
-}
+  }
+};
 
-export default connect(null, bindAction)(SProfile);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SProfile)

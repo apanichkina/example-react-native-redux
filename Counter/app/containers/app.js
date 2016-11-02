@@ -25,7 +25,10 @@ store.dispatch(addStory('2Learn about store',33,2))
 store.dispatch(addCategory('Category1',1))
 store.dispatch(addCategory('Category2',2))
 store.dispatch(addCategory('Category3',3))
+store.dispatch(addCategory('Category4',4))
+store.dispatch(addCategory('Category5',5))
 store.dispatch(addStory('2Learn about store',333,3))
+store.dispatch(addStory('Ann and her magic',13,5))
 
 // Прекратим слушать обновление состояния
 //unsubscribe()

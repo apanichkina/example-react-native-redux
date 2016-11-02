@@ -23,7 +23,7 @@ export default function (state = initialState, action={}) {
                 stories: state.stories.map((story) => {
                     if (story.id === action.id) {
                         return Object.assign({}, story, {
-                            bought: !story.bought
+                            bought: true
                         })
                     }
                     return story

@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Header, Title, View, Button, Icon, Tabs } from 'native-base';
@@ -30,7 +31,6 @@ class Store extends Component {
                   <StorePage
                       key={category.id}
                       tabLabel={category.name}
-                      onPress={console.log('Aaa')}
                       filter={category.id}
                       />
           )}

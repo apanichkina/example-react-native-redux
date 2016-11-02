@@ -29,3 +29,9 @@ export function addCategory(name:string, id:number):Action {
         name
     }
 }
+export function seeStory(id:number):Action {
+    return {
+        type: types.STORY_IN_FOCUS,
+        id
+    }
+}

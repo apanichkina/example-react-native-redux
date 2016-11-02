@@ -29,10 +29,10 @@ class Profile extends Component {
 
                 <Content style={{padding: 16}}>
                     <Text style={{ color: '#00C497' }} >Залогинен</Text>
-                                <Text style={{  paddingTop: 5}} >Возраст ребенка</Text>
-                            <InputGroup>
-                                <Input placeholder='2' />
-                            </InputGroup>
+                    <Text style={{  paddingTop: 5}} >Возраст ребенка</Text>
+                    <InputGroup>
+                        <Input maxLength={2} keyboardType='numeric' placeholder='Например: 2' />
+                    </InputGroup>
                 </Content>
             </Container>
         );

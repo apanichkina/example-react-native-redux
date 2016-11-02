@@ -14,6 +14,8 @@ export const SET_CATEGORY_FILTER = 'SET_CATEGORY_FILTER';
 export const BUY_STORY = 'BUY_STORY';
 export const ADD_STORY = 'ADD_STORY';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
+
+export const STORY_IN_FOCUS = 'STORY_IN_FOCUS';
 /*
  * другие константы
  */

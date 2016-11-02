@@ -3,7 +3,7 @@ import { Container, Content, Card} from 'native-base';
 import styles from './styles';
 import { connect } from 'react-redux';
 import { pushNewRoute } from '../../actions/route';
-import { buyStory } from '../../actions/store';
+import { seeStory } from '../../actions/store';
 import Story from './story'
 
 class StorePage extends Component {
@@ -19,6 +19,7 @@ class StorePage extends Component {
   }
   onStoryClick(id) {
     this.props.onStoryClick(id);
+    this.pushNewRoute('story-profile')
   }
   themes = [
     {
@@ -68,8 +69,7 @@ const mapStateToProps = (state,ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onStoryClick: id => dispatch(buyStory(id)),
-    popRoute: () => dispatch(popRoute()),
+    onStoryClick: id => dispatch(seeStory(id)),
     pushNewRoute: route => dispatch(pushNewRoute(route))
   }
 };
