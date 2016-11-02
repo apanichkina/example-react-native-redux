@@ -10,11 +10,10 @@ export const REPLACE_OR_PUSH_ROUTE = 'REPLACE_OR_PUSH_ROUTE';
 export const POP_ROUTE = 'POP_ROUTE';
 export const POP_TO_ROUTE = 'POP_TO_ROUTE';
 
-export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
-export const SET_STORY_CATEGORY = 'SET_STORY_CATEGORY';
+export const SET_CATEGORY_FILTER = 'SET_CATEGORY_FILTER';
 export const BUY_STORY = 'BUY_STORY';
 export const ADD_STORY = 'ADD_STORY';
-
+export const ADD_CATEGORY = 'ADD_CATEGORY';
 /*
  * другие константы
  */

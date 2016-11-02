@@ -1,28 +1,19 @@
-
 import React, { Component } from 'react';
-
-import { Container, Content, Card, CardItem, Text, View, Thumbnail } from 'native-base';
-
+import { Container, Content, Card} from 'native-base';
 import styles from './styles';
 import { connect } from 'react-redux';
-import { popRoute, pushNewRoute } from '../../actions/route';
+import { pushNewRoute } from '../../actions/route';
 import { buyStory } from '../../actions/store';
 import Story from './story'
-class TabOne extends Component { // eslint-disable-line
+
+class StorePage extends Component {
   static propTypes = {
-    popRoute: React.PropTypes.func,
     pushNewRoute: React.PropTypes.func,
     stories: React.PropTypes.arrayOf(React.PropTypes.shape({
-      id: React.PropTypes.number.isRequired,
-      bought: React.PropTypes.bool.isRequired,
-      name: React.PropTypes.string.isRequired
-    }).isRequired).isRequired,
-    onStoryClick: React.PropTypes.func.isRequired
-  }
+      id: React.PropTypes.number.isRequired
+    }).isRequired).isRequired
+  };
 
-  popRoute() {
-    this.props.popRoute();
-  }
   pushNewRoute(route) {
     this.props.pushNewRoute(route);
   }
@@ -46,7 +37,7 @@ class TabOne extends Component { // eslint-disable-line
     }
   ];
 
-  render() { // eslint-disable-line
+  render() {
     const { stories } = this.props;
     return (
       <Container style={styles.container}>
@@ -65,10 +56,13 @@ class TabOne extends Component { // eslint-disable-line
     );
   }
 }
+const getVisibleTodos = (todos, filter) => {
+      return todos.filter(t => t.categoryId === filter)
+};
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state,ownProps) => {
   return {
-    stories: state.store.stories
+    stories: getVisibleTodos(state.store.stories,ownProps.filter)
   }
 };
 
@@ -80,8 +74,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(TabOne)
+)(StorePage)

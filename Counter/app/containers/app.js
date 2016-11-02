@@ -1,18 +1,10 @@
 import React, {Component} from 'react';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-
-import Routes from './routes'
-import {
-    Router,
-    Scene,
-    Actions,
-    } from 'react-native-router-flux';
+import AppNavigator from '../containers/AppNavigator';
 import { connect, Provider } from 'react-redux';
-
 import * as reducers from '../reducers';
-import { addStory, buyStory, setVisibilityFilter } from '../actions/store'
-
+import { addStory, addCategory, buyStory } from '../actions/store'
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const reducer = combineReducers(reducers);
@@ -27,10 +19,13 @@ let unsubscribe = store.subscribe(() =>
 )
 
 // Отправим несколько действий
-store.dispatch(addStory('0Learn about actions',999))
-store.dispatch(addStory('1Learn about reducers',10))
-store.dispatch(addStory('2Learn about store',33))
-
+store.dispatch(addStory('0Learn about actions',999, 1))
+store.dispatch(addStory('1Learn about reducers',10, 1))
+store.dispatch(addStory('2Learn about store',33,2))
+store.dispatch(addCategory('Category1',1))
+store.dispatch(addCategory('Category2',2))
+store.dispatch(addCategory('Category3',3))
+store.dispatch(addStory('2Learn about store',333,3))
 
 // Прекратим слушать обновление состояния
 //unsubscribe()
@@ -39,7 +34,7 @@ export default class App extends React.Component  {
   render() {
     return (
         <Provider store={store}>
-            <Routes/>
+            <AppNavigator/>
         </Provider>
     );
   }

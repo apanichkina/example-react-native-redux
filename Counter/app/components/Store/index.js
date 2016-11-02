@@ -1,22 +1,19 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Header, Title, View, Button, Icon, Tabs } from 'native-base';
-
 import { openDrawer } from '../../actions/drawer';
 import { popRoute } from '../../actions/route';
 import myTheme from '../../themes/base-theme';
-
-import TabOne from './storePage';
+import StorePage from './storePage';
 
 class Store extends Component {
 
   static propTypes = {
     openDrawer: React.PropTypes.func
-  }
-
+  };
 
   render() {
+    const { categories } = this.props;
     return (
       <Container theme={myTheme}>
         <Header>
@@ -29,9 +26,14 @@ class Store extends Component {
 
         <View>
           <Tabs locked>
-            <TabOne tabLabel="Сказки" />
-            <TabOne tabLabel="Образовалки" />
-            <TabOne tabLabel="Помощник" />
+            {categories.map(category =>
+                  <StorePage
+                      key={category.id}
+                      tabLabel={category.name}
+                      onPress={console.log('Aaa')}
+                      filter={category.id}
+                      />
+          )}
           </Tabs>
         </View>
       </Container>
@@ -39,10 +41,20 @@ class Store extends Component {
   }
 }
 
-function bindAction(dispatch) {
+const mapStateToProps = (state) => {
+  return {
+    categories: state.storyCategory.categories
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
   return {
     openDrawer: () => dispatch(openDrawer())
-  };
-}
+  }
+};
 
-export default connect(null, bindAction)(Store);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Store)

@@ -1,29 +1,18 @@
 
 
 const initialState = {
-    visibilityFilter: 'all',
-    stories: [],
-    categories: []
+    stories: []
 };
 
 export default function (state = initialState, action={}) {
     switch (action.type) {
-        case 'SET_VISIBILITY_FILTER':
-            return {
-                ...state,
-                visibilityFilter: action.filter
-            };
-        case 'SET_STORY_CATEGORY':
-            return {
-                ...state,
-                categories: action.category
-            };
         case 'ADD_STORY':
             return {
                 stories: [
                     ...state.stories,
                     {
                         name: action.name,
+                        categoryId: action.categoryId,
                         id: action.id,
                         bought: false
                     }
