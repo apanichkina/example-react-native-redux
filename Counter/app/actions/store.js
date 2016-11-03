@@ -1,12 +1,6 @@
 import * as types from './actionTypes';
 
 
-export function setCategoryFilter(categoryId:number):Action {
-    return {
-        type: types.SET_CATEGORY_FILTER,
-        categoryId
-    }
-}
 export function buyStory(id:number):Action {
     return {
         type: types.BUY_STORY,
@@ -19,19 +13,5 @@ export function addStory(name:string, id:number, categoryId:number):Action {
         id,
         name,
         categoryId
-    }
-}
-
-export function addCategory(name:string, id:number):Action {
-    return {
-        type: types.ADD_CATEGORY,
-        id,
-        name
-    }
-}
-export function seeStory(id:number):Action {
-    return {
-        type: types.STORY_IN_FOCUS,
-        id
     }
 }

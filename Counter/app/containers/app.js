@@ -4,8 +4,8 @@ import thunk from 'redux-thunk';
 import AppNavigator from '../containers/AppNavigator';
 import { connect, Provider } from 'react-redux';
 import * as reducers from '../reducers';
-import { addStory, addCategory, buyStory } from '../actions/store'
-
+import { addStory, buyStory } from '../actions/store'
+import { addCategory } from '../actions/storyCategory'
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const reducer = combineReducers(reducers);
 const store = createStoreWithMiddleware(reducer);

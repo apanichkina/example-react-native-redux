@@ -3,7 +3,7 @@ import { Container, Content, Card} from 'native-base';
 import styles from './styles';
 import { connect } from 'react-redux';
 import { pushNewRoute } from '../../actions/route';
-import { seeStory } from '../../actions/store';
+import { seeStory } from '../../actions/story';
 import Story from './story'
 
 class StorePage extends Component {
