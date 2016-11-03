@@ -10,6 +10,7 @@ import { fetchStories } from '../actions/storyFromServer'
 import { fetchCategories } from '../actions/storyCategory'
 import { receiveCategories } from '../actions/storyCategory'
 import { receiveStories } from '../actions/storyFromServer'
+import { setToken } from '../actions/user'
 import { PossiblePurposes } from '../actions/actionTypes'
 const loggerMiddleware = createLogger();
 const createStoreWithMiddleware = applyMiddleware(thunk,loggerMiddleware)(createStore);
@@ -32,15 +33,17 @@ console.log(store.getState())
 //store.dispatch(addCategory('Category2',2))
 //store.dispatch(addStory('2Learn about store',333,3))
 //store.dispatch(addStory('Ann and her magic',13,5))
+store.dispatch(setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFubjMiLCJ0eXBlIjoidXNlciJ9.k6oJXjN7cUmiinSavGD9TRbR7MoQy41yujKF5T2BPVw'));
 store.dispatch(fetchCategories()).then(() =>
-        console.log(store.getState())
-)
-store.dispatch(fetchStories(PossiblePurposes.SHOP)).then(() =>
         console.log(store.getState())
 )
 store.dispatch(fetchStories(PossiblePurposes.USER)).then(() =>
         console.log(store.getState())
 )
+store.dispatch(fetchStories(PossiblePurposes.SHOP)).then(() =>
+        console.log(store.getState())
+)
+
 // Прекратим слушать обновление состояния
 //unsubscribe()
 export default class App extends React.Component  {

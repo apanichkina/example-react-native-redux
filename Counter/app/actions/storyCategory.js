@@ -25,13 +25,16 @@ export function receiveCategories(json):Action {
 
 export function fetchCategories() {
 
-    return function (dispatch,getState) {
+    return function (dispatch) {
         let url = 'http://hardteddy.ru/api/store/categories';
                 return fetch(url, {
                     method: 'GET',
                     headers: {}
                 }).then(response => response.json())
                     .then(json => dispatch(receiveCategories(json))
-                );
+                ).catch((error) => {
+                        console.log('category error:')
+                        console.log(error)
+                    });
     }
 }

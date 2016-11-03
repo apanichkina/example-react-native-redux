@@ -7,6 +7,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { openDrawer } from '../../actions/drawer';
 import { popRoute } from '../../actions/route';
 import { buyStory } from '../../actions/store';
+import { fetchBuyStory } from '../../actions/store';
 import styles from './styles';
 import myTheme from '../../themes/base-theme';
 var Slider = require('react-native-slider');
@@ -63,6 +64,7 @@ class SProfile extends Component {
   }
   buyStory(id) {
     this.props.buyStory(id);
+
   }
 
   render() {
@@ -164,7 +166,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    buyStory: id => dispatch(buyStory(id)),
+    buyStory: id => dispatch(fetchBuyStory(id)),
     openDrawer: () => dispatch(openDrawer()),
     popRoute: () => dispatch(popRoute())
   }

@@ -3,8 +3,7 @@
 const initialState = {
     isFetching: false,
     didInvalidate: false,
-    items: [],
-    userToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFubiIsInR5cGUiOiJ1c2VyIn0.hAxAvPxOJCm73rVwR54MwP7P3SKDmFG0Prsn_JGGzcQ'
+    items: []
 };
 
 function posts(state = initialState, action={}) {
@@ -25,6 +24,8 @@ function posts(state = initialState, action={}) {
                 items: action.posts,
                 lastUpdated: action.receivedAt
             });
+
+
         default:
             return state
     }
@@ -38,6 +39,14 @@ function postsByPurpose(state = {}, action={}) {
             return Object.assign({}, state, {
                 [action.purpose]: posts(state[action.purpose], action)
             });
+        case 'BUY_STORY':
+            console.log('I am buy story reducer');
+            let boughtStory= state.SHOP.items.filter(t => t.id == action.id)[0];
+            console.log('boughtStory: ');
+            console.log(boughtStory);
+            let nextState = {};
+            return Object.assign({}, state,{items: [...state.USER.items, boughtStory]});
+
         default:
             return state
     }

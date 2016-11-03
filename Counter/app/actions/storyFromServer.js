@@ -67,7 +67,7 @@ export function fetchStories(purpose) {
                 return fetch(url, {
                     method: 'GET',
                     headers: {
-                        'Authorization': state.storyFromServer.SHOP.userToken
+                        'Authorization': state.user.userToken
                     }
                 }).then((response) => response.json())
                     .then(json =>
