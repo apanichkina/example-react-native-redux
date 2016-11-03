@@ -21,22 +21,6 @@ class StorePage extends Component {
     this.props.onStoryClick(id);
     this.pushNewRoute('story-profile')
   }
-  themes = [
-    {
-      name: 'Свинка Пепка',
-      image: require('../../../img/pepa.jpeg'),
-      duration: '20:30',
-      price: 20,
-      route: ()=>{this.pushNewRoute('story-profile')}
-    },
-    {
-      name: 'Три Кота',
-      image: require('../../../img/3kota.jpeg'),
-      duration: '20:30',
-      price: 20,
-      route: ()=>{this.pushNewRoute('story-profile')}
-    }
-  ];
 
   render() {
     const { stories } = this.props;
@@ -58,12 +42,12 @@ class StorePage extends Component {
   }
 }
 const getFilteredStories = (stories, filter) => {
-      return stories.filter(t => t.categoryId === filter)
+      return stories.filter(t => t.category == filter)
 };
 
 const mapStateToProps = (state,ownProps) => {
   return {
-    stories: getFilteredStories(state.store.stories,ownProps.filter)
+    stories: getFilteredStories(state.storyFromServer.SHOP.items,ownProps.filter)
   }
 };
 

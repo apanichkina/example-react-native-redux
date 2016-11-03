@@ -11,10 +11,12 @@ import styles from './styles';
 import myTheme from '../../themes/base-theme';
 var Slider = require('react-native-slider');
 
-const isAuth = true;
+
+const illustration_default = require('../../../img/illustration2.jpg');
 const logo_fun = 'ios-happy-outline';
 const logo_edu = 'ios-school-outline';
 const logo_helper = 'ios-ionitron-outline';
+const logo_default = 'ios-book-outline';
 // Развлекательные ios-happy-outline
 // Обучающие ios-school-outline
 // Помощник ios-ionitron-outline
@@ -63,34 +65,8 @@ class SProfile extends Component {
     this.props.buyStory(id);
   }
 
-
-  themes = [
-    {
-      name: 'Свинка Пепка',
-      image: require('../../../img/pepa.jpeg'),
-      duration: '20:30',
-      price: '20',
-      year: '2004',
-      category: 'fun',
-      description: 'Пеппа – маленькая забавная свинка, которая живет вместе с мамой Свинкой, папой Свином и младшим ' +
-      'братиком Джорджем. Несмотря на то, что все они свинки, семья Пеппы живет в обычном доме, а ее родители ходят ' +
-      'на работу. Пеппе четыре года, она обожает прыгать по лужам и гулять со своей лучше подружкой, овечкой Сьюзи. ' +
-      'Джорджу всего два, он пока еще знает мало слов, но очень любит играть, и его любимая игрушка – Мистер Динозавр. ' +
-      'Мама Свинка заботится о своей семье и готовит вкусности, ну а папа Свин – заядлый путешественник. Хрю-хрю!',
-      route: ()=>{this.pushNewRoute('story-profile')}
-    },
-    {
-      name: 'Три Кота',
-      image: require('../../../img/3kota.jpeg'),
-      duration: '20:30',
-      price: '20',
-      route: ()=>{this.pushNewRoute('story-profile')}
-    }
-  ];
-
-
   render() {
-    const { story } = this.props;
+    const { story, isBought } = this.props;
     return (
       <Container theme={myTheme} style={styles.container}>
         <Header>
@@ -106,16 +82,20 @@ class SProfile extends Component {
           <Card style={[styles.mb, { flex: 0 }]}>
 
             <CardItem>
-              {this.themes[0].category === 'fun' ?
-                    <Icon name={logo_fun} />
-                  : <Icon name={logo_edu} />
+              <Image style={{ resizeMode: 'cover'}} source={story.illustration ?
+                   story.illustration
+                  : illustration_default}/>
+              </CardItem>
+
+            <CardItem>
+              {story.category === 1 ?
+                  <Icon name={logo_fun} />
+                  : <Icon name={logo_default} />
               }
               <Text>{story.name}</Text>
-              <Text note>{this.themes[0].year}</Text>
             </CardItem>
 
-            <CardItem cardBody>
-              <Image style={{ resizeMode: 'cover', width: null }} source={this.themes[0].image} />
+            <CardItem cardBody >
               <View style={{ flexDirection:'row'}}>
                 <Button style={{ margin: 6, flex:1}}>
                   <Icon name="ios-play" style={{ color: '#fff', margin: 5 }}/>
@@ -138,7 +118,7 @@ class SProfile extends Component {
               </View>
               {/* <Text style={{ paddingTop: 8, flex:1, fontSize: 15 }}>{this.themes[0].duration}</Text> */}
               <View style={{ flexDirection:'row'  }}>
-                {story.bought ? <View style={{ flexDirection:'row',flex: 2}}>
+                {isBought ? <View style={{ flexDirection:'row',flex: 2}}>
                             <Button style={{ margin: 6, flex:1}} >
                               <Icon name="ios-cloud-upload" />
                             </Button>
@@ -149,7 +129,7 @@ class SProfile extends Component {
                         : <Button style={{ margin: 6, flex: 2}}
                                   onPress={() => this.buyStory((story.id))}>
                             <Icon name="ios-basket" />
-                            <Text style={{ color: '#fff'}}>{this.themes[0].price} руб.</Text>
+                            <Text style={{ color: '#fff'}}>{story.price} руб.</Text>
                           </Button>
                 }
 
@@ -158,7 +138,7 @@ class SProfile extends Component {
                   <Text>Поделиться</Text>
                 </Button>
               </View>
-              <Text>{this.themes[0].description}</Text>
+              <Text>{story.description}</Text>
             </CardItem>
           </Card>
         </Content>
@@ -171,9 +151,13 @@ const getStoryById = (stories, id) => {
   let storyArr = stories.filter(t => t.id === id);
   return storyArr[0]
 };
+const isStoryBought = (stories, id) => {
+  return !!getStoryById(stories, id);
+}
 const mapStateToProps = (state) => {
   return {
-    story: getStoryById(state.store.stories,state.story.storyId)
+    story: getStoryById(state.storyFromServer.SHOP.items, state.story.storyId),
+    isBought: isStoryBought(state.storyFromServer.USER.items, state.story.storyId)
   }
 };
 

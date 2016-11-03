@@ -10,7 +10,7 @@ export function receiveStories(purpose, json):Action {
     return {
         type: types.RECEIVE_STORIES,
         purpose,
-        posts: json.body.stories.map(child => child.name),
+        posts: json.body.stories.map(child => child),
         receivedAt: Date.now()
     }
 }

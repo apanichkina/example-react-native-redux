@@ -8,7 +8,7 @@ import { replaceOrPushRoute } from '../../actions/route';
 import sidebarTheme from './sidebar-theme';
 import styles from './style';
 
-const drawerCover = require('../../../img/pepa.jpeg');
+
 const drawerImage = require('../../../img/logo.png');
 
 class SideBar extends Component {

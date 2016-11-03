@@ -30,7 +30,7 @@ class Store extends Component {
             {categories.map(category =>
                   <StorePage
                       key={category.id}
-                      tabLabel={category.name}
+                      tabLabel={category.id}
                       filter={category.id}
                       />
           )}
