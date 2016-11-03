@@ -7,7 +7,9 @@ import { connect, Provider } from 'react-redux';
 import * as reducers from '../reducers';
 import { addStory, buyStory } from '../actions/store'
 import { fetchStories } from '../actions/storyFromServer'
-import { addCategory } from '../actions/storyCategory'
+import { fetchCategories } from '../actions/storyCategory'
+import { receiveCategories } from '../actions/storyCategory'
+import { receiveStories } from '../actions/storyFromServer'
 import { PossiblePurposes } from '../actions/actionTypes'
 const loggerMiddleware = createLogger();
 const createStoreWithMiddleware = applyMiddleware(thunk,loggerMiddleware)(createStore);
@@ -26,13 +28,13 @@ console.log(store.getState())
 //store.dispatch(addStory('0Learn about actions',999, 1))
 //store.dispatch(addStory('1Learn about reducers',10, 1))
 //store.dispatch(addStory('2Learn about store',33,2))
-store.dispatch(addCategory('Category1',1))
-store.dispatch(addCategory('Category2',2))
-store.dispatch(addCategory('Category3',3))
-store.dispatch(addCategory('Category4',4))
-store.dispatch(addCategory('Category5',5))
+//store.dispatch(addCategory('Category1',1))
+//store.dispatch(addCategory('Category2',2))
 //store.dispatch(addStory('2Learn about store',333,3))
 //store.dispatch(addStory('Ann and her magic',13,5))
+store.dispatch(fetchCategories()).then(() =>
+        console.log(store.getState())
+)
 store.dispatch(fetchStories(PossiblePurposes.SHOP)).then(() =>
         console.log(store.getState())
 )

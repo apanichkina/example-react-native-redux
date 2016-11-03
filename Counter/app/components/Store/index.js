@@ -30,7 +30,7 @@ class Store extends Component {
             {categories.map(category =>
                   <StorePage
                       key={category.id}
-                      tabLabel={category.id}
+                      tabLabel={category.name}
                       filter={category.id}
                       />
           )}
@@ -43,7 +43,7 @@ class Store extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    categories: state.storyCategory.categories
+      categories: state.storyCategory.categories
   }
 };
 

@@ -158,6 +158,7 @@ const mapStateToProps = (state) => {
   return {
     story: getStoryById(state.storyFromServer.SHOP.items, state.story.storyId),
     isBought: isStoryBought(state.storyFromServer.USER.items, state.story.storyId)
+
   }
 };
 

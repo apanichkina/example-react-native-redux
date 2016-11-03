@@ -12,6 +12,7 @@ export const POP_TO_ROUTE = 'POP_TO_ROUTE';
 
 export const SET_CATEGORY_FILTER = 'SET_CATEGORY_FILTER';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 
 export const ADD_STORY = 'ADD_STORY';
 export const REQUEST_STORIES = 'REQUEST_STORIES';
@@ -21,6 +22,10 @@ export const BUY_STORY = 'BUY_STORY';
 
 export const INVALIDATE_PURPOSE = 'INVALIDATE_PURPOSE';
 export const SEE_STORY = 'SEE_STORY';
+
+export const SET_USER_TOKEN = 'SET_USER_TOKEN';
+
+
 /*
  * другие константы
  */

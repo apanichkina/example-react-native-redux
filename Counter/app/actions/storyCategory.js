@@ -15,3 +15,23 @@ export function addCategory(name:string, id:number):Action {
         name
     }
 }
+export function receiveCategories(json):Action {
+    return {
+        type: types.RECEIVE_CATEGORIES,
+        posts: json.body.categories.map(child => child),
+        receivedAt: Date.now()
+    }
+}
+
+export function fetchCategories() {
+
+    return function (dispatch,getState) {
+        let url = 'http://hardteddy.ru/api/store/categories';
+                return fetch(url, {
+                    method: 'GET',
+                    headers: {}
+                }).then(response => response.json())
+                    .then(json => dispatch(receiveCategories(json))
+                );
+    }
+}

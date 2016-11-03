@@ -2,7 +2,9 @@
 
 const initialState = {
     categoryFilter: 0,
-    categories: []
+    categories: [],
+    isFetching: false,
+    didInvalidate: false
 };
 
 export default function (state = initialState, action={}) {
@@ -22,6 +24,13 @@ export default function (state = initialState, action={}) {
                     }
                 ]
             };
+        case 'RECEIVE_CATEGORIES':
+            return Object.assign({}, state, {
+                isFetching: false,
+                didInvalidate: false,
+                categories: action.posts,
+                lastUpdated: action.receivedAt
+            });
         default:
             return state
     }

@@ -34,7 +34,7 @@ export function fetchStories(purpose) {
     // Он передает метод действия в качестве аргумента функции,
     // т.к. это позволяет отправить действие самостоятельно.
 
-    return function (dispatch) {
+    return function (dispatch,getState) {
 
         // First dispatch: the app state is updated to inform
         // that the API call is starting.
@@ -49,7 +49,7 @@ export function fetchStories(purpose) {
         let url = '';
         switch (purpose) {
             case types.PossiblePurposes.SHOP:
-                url = 'http://hardteddy.ru/api/store/story'
+                url = 'http://hardteddy.ru/api/store/story';
                 return fetch(url, {
                     method: 'GET',
                     headers: {}
@@ -63,10 +63,11 @@ export function fetchStories(purpose) {
                 );
             case types.PossiblePurposes.USER:
                 url = 'http://hardteddy.ru/api/user/mystories';
+                let state = getState();
                 return fetch(url, {
                     method: 'GET',
                     headers: {
-                        'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFubiIsInR5cGUiOiJ1c2VyIn0.hAxAvPxOJCm73rVwR54MwP7P3SKDmFG0Prsn_JGGzcQ'
+                        'Authorization': state.storyFromServer.SHOP.userToken
                     }
                 }).then((response) => response.json())
                     .then(json =>
