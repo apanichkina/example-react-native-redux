@@ -6,7 +6,7 @@ const initialState = {
 
 export default function (state = initialState, action={}) {
     switch (action.type) {
-        case 'STORY_IN_FOCUS':
+        case 'SEE_STORY':
             return {
                 storyId: action.id
                 

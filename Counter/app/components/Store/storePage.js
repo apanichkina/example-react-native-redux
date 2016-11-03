@@ -57,13 +57,13 @@ class StorePage extends Component {
     );
   }
 }
-const getVisibleTodos = (todos, filter) => {
-      return todos.filter(t => t.categoryId === filter)
+const getFilteredStories = (stories, filter) => {
+      return stories.filter(t => t.categoryId === filter)
 };
 
 const mapStateToProps = (state,ownProps) => {
   return {
-    stories: getVisibleTodos(state.store.stories,ownProps.filter)
+    stories: getFilteredStories(state.store.stories,ownProps.filter)
   }
 };
 

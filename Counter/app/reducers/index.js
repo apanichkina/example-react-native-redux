@@ -4,11 +4,13 @@ import route from './route'
 import store from './store'
 import storyCategory from './storyCategory.js'
 import story from './story'
+import storyFromServer from './storyFromServer'
 export {
     counter,
     drawer,
     route,
     store,
     storyCategory,
-    story
+    story,
+    storyFromServer
     };

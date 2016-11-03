@@ -11,11 +11,20 @@ export const POP_ROUTE = 'POP_ROUTE';
 export const POP_TO_ROUTE = 'POP_TO_ROUTE';
 
 export const SET_CATEGORY_FILTER = 'SET_CATEGORY_FILTER';
-export const BUY_STORY = 'BUY_STORY';
-export const ADD_STORY = 'ADD_STORY';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 
-export const STORY_IN_FOCUS = 'STORY_IN_FOCUS';
+export const ADD_STORY = 'ADD_STORY';
+export const REQUEST_STORIES = 'REQUEST_STORIES';
+export const RECEIVE_STORIES = 'RECEIVE_STORIES';
+export const BUY_STORY = 'BUY_STORY';
+
+
+export const INVALIDATE_PURPOSE = 'INVALIDATE_PURPOSE';
+export const SEE_STORY = 'SEE_STORY';
 /*
  * другие константы
  */
+export const PossiblePurposes = {
+    SHOP: 'SHOP',
+    USER: 'USER'
+};
