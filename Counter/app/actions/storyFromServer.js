@@ -49,7 +49,7 @@ export function fetchStories(purpose) {
         let url = '';
         switch (purpose) {
             case types.PossiblePurposes.SHOP:
-                url = 'http://hardteddy.ru/api/store/story';
+                url = 'https://hardteddy.ru/api/store/story';
                 return fetch(url, {
                     method: 'GET',
                     headers: {}
@@ -60,9 +60,12 @@ export function fetchStories(purpose) {
                         // Here, we update the app state with the results of the API call.
 
                         dispatch(receiveStories(purpose, json))
-                );
+                ).catch((error) => {
+                        console.log('fetch store error:');
+                        console.log(error)
+                    });
             case types.PossiblePurposes.USER:
-                url = 'http://hardteddy.ru/api/user/mystories';
+                url = 'https://hardteddy.ru/api/user/mystories';
                 let state = getState();
                 return fetch(url, {
                     method: 'GET',
@@ -76,7 +79,10 @@ export function fetchStories(purpose) {
                         // Here, we update the app state with the results of the API call.
 
                         dispatch(receiveStories(purpose, json))
-                );
+                ).catch((error) => {
+                        console.log('fetch user error:');
+                        console.log(error)
+                    });
 
 
             default:

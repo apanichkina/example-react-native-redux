@@ -18,7 +18,7 @@ export function addStory(name:string, id:number, categoryId:number):Action {
 export function fetchBuyStory(id) {
     console.log('id:'+id);
     return function (dispatch,getState) {
-        fetch('http://hardteddy.ru/api/store/buy', {
+        fetch('https://hardteddy.ru/api/store/buy', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

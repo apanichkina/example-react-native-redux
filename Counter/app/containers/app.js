@@ -33,7 +33,7 @@ console.log(store.getState())
 //store.dispatch(addCategory('Category2',2))
 //store.dispatch(addStory('2Learn about store',333,3))
 //store.dispatch(addStory('Ann and her magic',13,5))
-store.dispatch(setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFubjMiLCJ0eXBlIjoidXNlciJ9.k6oJXjN7cUmiinSavGD9TRbR7MoQy41yujKF5T2BPVw'));
+store.dispatch(setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFubjQiLCJ0eXBlIjoidXNlciJ9.PBAP-SE2PLjRZ410osazlkwoC_s01x982xvYRbaiBfU'));
 store.dispatch(fetchCategories()).then(() =>
         console.log(store.getState())
 )

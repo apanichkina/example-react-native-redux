@@ -24,8 +24,17 @@ function posts(state = initialState, action={}) {
                 items: action.posts,
                 lastUpdated: action.receivedAt
             });
+        default:
+            return state
+    }
+}
 
-
+function addInnerState(state = initialState, action={}, newStory={}) {
+    switch (action.type) {
+        case 'BUY_STORY':
+            return Object.assign({}, state, {
+                items: [...state.items, newStory]
+            });
         default:
             return state
     }
@@ -40,12 +49,10 @@ function postsByPurpose(state = {}, action={}) {
                 [action.purpose]: posts(state[action.purpose], action)
             });
         case 'BUY_STORY':
-            console.log('I am buy story reducer');
             let boughtStory= state.SHOP.items.filter(t => t.id == action.id)[0];
-            console.log('boughtStory: ');
-            console.log(boughtStory);
-            let nextState = {};
-            return Object.assign({}, state,{items: [...state.USER.items, boughtStory]});
+            return Object.assign({}, state, {
+                ['USER']: addInnerState(state['USER'], action, boughtStory)
+            });
 
         default:
             return state
