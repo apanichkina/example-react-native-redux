@@ -79,6 +79,14 @@ class SideBar extends Component {
                             <Text style={styles.text}>Профиль</Text>
                         </View>
                     </ListItem>
+                    <ListItem button iconLeft onPress={() => this.navigateTo('bluetooth')} >
+                        <View style={styles.listItemContainer}>
+                            <View style={[styles.iconContainer, { paddingLeft: 14 }]}>
+                                <Icon name="ios-bluetooth" style={styles.sidebarIcon} />
+                            </View>
+                            <Text style={styles.text}>Блютус</Text>
+                        </View>
+                    </ListItem>
                 </List>
             </Content>
         );

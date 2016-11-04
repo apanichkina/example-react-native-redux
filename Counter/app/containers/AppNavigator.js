@@ -16,6 +16,7 @@ import Profile from '../components/Profile/';
 import BearProfile from '../components/BearProfile/';
 import StoryProfile from '../components/StoryProfile/';
 import SideBar from '../components/SideBar/';
+import Bluetooth from './Bluetooth'
 //import statusBarColor from './themes/base-theme';
 
 Navigator.prototype.replaceWithAnimation = function replaceWithAnimation(route) {
@@ -108,6 +109,8 @@ class AppNavigator extends Component {
                 return <Profile navigator={navigator} />;
             case 'bear-profile':
                 return <BearProfile navigator={navigator} />;
+            case 'bluetooth':
+                return <Bluetooth navigator={navigator} />;
             default :
                 return <Home navigator={navigator} />;
         }
