@@ -39,7 +39,8 @@ class Counter extends React.Component {
     }
 
   render(){
-    const { state, bluetoothState } = this.props;
+    const { state, bluetoothEnabled } = this.props;
+      console.log(bluetoothEnabled)
     return (
     <Container theme={myTheme} style={styles.container}>
 
@@ -55,7 +56,7 @@ class Counter extends React.Component {
                 <Text>Counter: {this.props.data}</Text>
                 <Text>{state.count}</Text>
                 <Button onPress={this.props.increment}>Increment</Button>
-                <Text>Bluetooth: {bluetoothState}</Text>
+                <Text>{bluetoothEnabled ? 'Bluetooth is enabled' : 'Bluetooth is disabled'}</Text>
             </View>
         </Content>
 
@@ -68,7 +69,7 @@ class Counter extends React.Component {
 const mapStateToProps = (state) => {
     return {
         state: state.counter,
-        bluetoothState: state.bluetooth.bluetoothState
+        bluetoothEnabled: state.bluetooth.bluetoothEnabled
     }
 };
 const mapDispatchToProps = (dispatch) => {

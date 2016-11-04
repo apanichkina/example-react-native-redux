@@ -36,5 +36,9 @@ export const PossiblePurposes = {
 
 //Bluetooth
 
+export const ENABLE_BLUETOOTH = 'ENABLE_BLUETOOTH';
+export const DISABLE_BLUETOOTH = 'DISABLE_BLUETOOTH';
+
 export const CONNECT_BLUETOOTH = 'CONNECT_BLUETOOTH';
 export const UNCONNECT_BLUETOOTH = 'UNCONNECT_BLUETOOTH';
+

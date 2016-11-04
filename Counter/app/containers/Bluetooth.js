@@ -29,12 +29,20 @@ var strings = {
 global.Buffer = Buffer
 const iconv = require('iconv-lite')
 
+import { connect } from 'react-redux';
+import { pushNewRoute } from '../actions/route';
 const Button = ({ label, onPress }) =>
     <TouchableOpacity style={styles.button} onPress={onPress}>
         <Text style={{ color: '#fff' }}>{label}</Text>
     </TouchableOpacity>
 
-export default class Bluetooth extends Component {
+class Bluetooth extends Component {
+    static propTypes = {
+        pushNewRoute: React.PropTypes.func
+    };
+    pushNewRoute(route) {
+        this.props.pushNewRoute(route);
+    }
 
     constructor (props) {
         super(props)
@@ -83,6 +91,7 @@ export default class Bluetooth extends Component {
 
         BluetoothSerial.on('bluetoothEnabled', () => {
             //Toast.showLongBottom('Bluetooth enabled')
+            //this.enableBluetooth();
             console.log('Bluetooth enabled')
             Promise.all([
                 BluetoothSerial.isEnabled(),
@@ -95,7 +104,8 @@ export default class Bluetooth extends Component {
         })
 
         BluetoothSerial.on('bluetoothDisabled', () => {
-            consile.log('Bluetooth disabled')
+            //this.disableBluetooth();
+            console.log('Bluetooth disabled')
             //Toast.showLongBottom('Bluetooth disabled')
         })
 
@@ -195,7 +205,7 @@ export default class Bluetooth extends Component {
                  }); */
                 this.setState({ device, connected: true, connecting: false })
                 global.device = device;
-                Actions.mishka({ device: device });
+                this.pushNewRoute('bluetooth-story')
             })
             .catch((err) => {
                 this.setState({ connected: false, connecting: false })
@@ -208,6 +218,7 @@ export default class Bluetooth extends Component {
     disconnect () {
       BluetoothSerial.disconnect()
           .then(() => {
+
               // this.setState({ connected: false })
               // this.unsubscribe();
           })
@@ -278,6 +289,8 @@ export default class Bluetooth extends Component {
     }
 
     render () {
+        const { bluetoothEnabled } = this.props;
+        console.log(bluetoothEnabled);
         return (
             <View style={styles.container}>
                 <Text style={styles.heading}>{strings.title}</Text>
@@ -288,7 +301,7 @@ export default class Bluetooth extends Component {
                             <Text style={{ fontWeight: 'bold' }}>{strings.activateBT}</Text>
                             <Switch
                                 onValueChange={this.toggleBluetooth.bind(this)}
-                                value={this.state.isEnabled} />
+                                value={bluetoothEnabled} />
                         </View>
                     ) : null}
                 </View>
@@ -351,6 +364,21 @@ export default class Bluetooth extends Component {
 
 }
 
+const mapStateToProps = (state,ownProps) => {
+    return {
+        bluetoothEnabled: state.bluetooth.bluetoothEnabled
+    }
+};
+const mapDispatchToProps = (dispatch,ownProps) => {
+    return {
+        pushNewRoute: route => dispatch(pushNewRoute(route))
+    }
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Bluetooth)
 const styles = StyleSheet.create({
     container: {
         flex: 1,

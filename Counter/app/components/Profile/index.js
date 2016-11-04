@@ -17,7 +17,7 @@ class Profile extends Component {
     }
     
     render() {
-        const { bluetoothState } = this.props;
+        const { bluetoothEnabled } = this.props;
         return (
             <Container theme={myTheme} style={styles.container}>
 
@@ -29,7 +29,7 @@ class Profile extends Component {
                 </Header>
 
                 <Content style={{padding: 16}}>
-                    <Text>Bluetooth: {bluetoothState}</Text>
+                    <Text>{bluetoothEnabled ? 'Bluetooth is enabled' : 'Bluetooth is disabled'}</Text>
                     <Text style={{ color: '#00C497' }} >Залогинен</Text>
                     <Text style={{  paddingTop: 5}} >Возраст ребенка</Text>
                     <InputGroup>
@@ -44,7 +44,7 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        bluetoothState: state.bluetooth.bluetoothState
+        bluetoothEnabled: state.bluetooth.bluetoothEnabled
     }
 };
 const mapDispatchToProps = (dispatch) => {

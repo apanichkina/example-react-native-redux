@@ -18,7 +18,7 @@ import StoryProfile from '../components/StoryProfile/';
 import SideBar from '../components/SideBar/';
 import Bluetooth from './Bluetooth'
 import BStory from './Story'
-import { connectBluetooth, unconnectBluetooth } from '../actions/bluetooth';
+import { enableBluetooth, disableBluetooth } from '../actions/bluetooth';
 import BluetoothSerial from 'react-native-bluetooth-hc05'
 //import statusBarColor from './themes/base-theme';
 
@@ -58,7 +58,7 @@ class AppNavigator extends Component {
     componentWillMount() {
             BluetoothSerial.isEnabled().then((value) => {
                 if (value)  {
-                    this.connectBluetooth();
+                    this.enableBluetooth();
                 }
             }).catch(error => {
                 console.log(error);
@@ -79,12 +79,12 @@ class AppNavigator extends Component {
         });
 
         BluetoothSerial.on('bluetoothEnabled', () => {
-            this.connectBluetooth();
+            this.enableBluetooth();
             console.log('Bluetooth enabled')
         });
 
         BluetoothSerial.on('bluetoothDisabled', () => {
-            this.unconnectBluetooth();
+            this.disableBluetooth();
             console.log('Bluetooth disabled')
         })
     }
@@ -102,11 +102,11 @@ class AppNavigator extends Component {
     popRoute() {
         this.props.popRoute();
     }
-    connectBluetooth() {
-        this.props.connectBluetooth();
+    enableBluetooth() {
+        this.props.enableBluetooth();
     }
-    unconnectBluetooth() {
-        this.props.unconnectBluetooth();
+    disableBluetooth() {
+        this.props.disableBluetooth();
     }
 
     openDrawer() {
@@ -195,8 +195,8 @@ class AppNavigator extends Component {
 const bindAction = dispatch => ({
     closeDrawer: () => dispatch(closeDrawer()),
     popRoute: () => dispatch(popRoute()),
-    connectBluetooth: () => dispatch(connectBluetooth()),
-    unconnectBluetooth: () => dispatch(unconnectBluetooth())
+    enableBluetooth: () => dispatch(enableBluetooth()),
+    disableBluetooth: () => dispatch(disableBluetooth())
 });
 
 const mapStateToProps = state => ({

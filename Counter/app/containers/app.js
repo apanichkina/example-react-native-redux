@@ -34,15 +34,15 @@ console.log(store.getState())
 //store.dispatch(addStory('2Learn about store',333,3))
 //store.dispatch(addStory('Ann and her magic',13,5))
 store.dispatch(setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFubjQiLCJ0eXBlIjoidXNlciJ9.PBAP-SE2PLjRZ410osazlkwoC_s01x982xvYRbaiBfU'));
-store.dispatch(fetchCategories()).then(() =>
-        console.log(store.getState())
-)
-store.dispatch(fetchStories(PossiblePurposes.USER)).then(() =>
-        console.log(store.getState())
-)
-store.dispatch(fetchStories(PossiblePurposes.SHOP)).then(() =>
-        console.log(store.getState())
-)
+//store.dispatch(fetchCategories()).then(() =>
+//        console.log(store.getState())
+//)
+//store.dispatch(fetchStories(PossiblePurposes.USER)).then(() =>
+//        console.log(store.getState())
+//)
+//store.dispatch(fetchStories(PossiblePurposes.SHOP)).then(() =>
+//        console.log(store.getState())
+//)
 
 // Прекратим слушать обновление состояния
 //unsubscribe()
