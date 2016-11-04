@@ -6,6 +6,7 @@ import storyCategory from './storyCategory.js'
 import story from './story'
 import user from './user'
 import storyFromServer from './storyFromServer'
+import bluetooth from './bluetooth'
 export {
     counter,
     drawer,
@@ -14,5 +15,6 @@ export {
     storyCategory,
     story,
     storyFromServer,
-    user
+    user,
+    bluetooth
     };

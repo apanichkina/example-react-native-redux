@@ -17,6 +17,9 @@ import BearProfile from '../components/BearProfile/';
 import StoryProfile from '../components/StoryProfile/';
 import SideBar from '../components/SideBar/';
 import Bluetooth from './Bluetooth'
+import BStory from './Story'
+import { connectBluetooth, unconnectBluetooth } from '../actions/bluetooth';
+import BluetoothSerial from 'react-native-bluetooth-hc05'
 //import statusBarColor from './themes/base-theme';
 
 Navigator.prototype.replaceWithAnimation = function replaceWithAnimation(route) {
@@ -48,9 +51,19 @@ class AppNavigator extends Component {
     static propTypes = {
         drawerState: React.PropTypes.string,
         popRoute: React.PropTypes.func,
-        closeDrawer: React.PropTypes.func
+        closeDrawer: React.PropTypes.func,
+        connectBluetooth: React.PropTypes.func,
+        unconnectBluetooth: React.PropTypes.func
     }
-
+    componentWillMount() {
+            BluetoothSerial.isEnabled().then((value) => {
+                if (value)  {
+                    this.connectBluetooth();
+                }
+            }).catch(error => {
+                console.log(error);
+            });
+    }
     componentDidMount() {
         globalNav.navigator = this._navigator;
 
@@ -64,6 +77,16 @@ class AppNavigator extends Component {
             this.popRoute();
             return true;
         });
+
+        BluetoothSerial.on('bluetoothEnabled', () => {
+            this.connectBluetooth();
+            console.log('Bluetooth enabled')
+        });
+
+        BluetoothSerial.on('bluetoothDisabled', () => {
+            this.unconnectBluetooth();
+            console.log('Bluetooth disabled')
+        })
     }
 
     componentDidUpdate() {
@@ -78,6 +101,12 @@ class AppNavigator extends Component {
 
     popRoute() {
         this.props.popRoute();
+    }
+    connectBluetooth() {
+        this.props.connectBluetooth();
+    }
+    unconnectBluetooth() {
+        this.props.unconnectBluetooth();
     }
 
     openDrawer() {
@@ -111,6 +140,8 @@ class AppNavigator extends Component {
                 return <BearProfile navigator={navigator} />;
             case 'bluetooth':
                 return <Bluetooth navigator={navigator} />;
+            case 'bluetooth-story':
+                return <BStory navigator={navigator} />;
             default :
                 return <Home navigator={navigator} />;
         }
@@ -163,7 +194,9 @@ class AppNavigator extends Component {
 
 const bindAction = dispatch => ({
     closeDrawer: () => dispatch(closeDrawer()),
-    popRoute: () => dispatch(popRoute())
+    popRoute: () => dispatch(popRoute()),
+    connectBluetooth: () => dispatch(connectBluetooth()),
+    unconnectBluetooth: () => dispatch(unconnectBluetooth())
 });
 
 const mapStateToProps = state => ({

@@ -33,3 +33,8 @@ export const PossiblePurposes = {
     SHOP: 'SHOP',
     USER: 'USER'
 };
+
+//Bluetooth
+
+export const CONNECT_BLUETOOTH = 'CONNECT_BLUETOOTH';
+export const UNCONNECT_BLUETOOTH = 'UNCONNECT_BLUETOOTH';

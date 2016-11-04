@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes  from 'react-native'
-import {  CardItem, Text, Button } from 'native-base';
+import {  CardItem, Text, Button, Thumbnail } from 'native-base';
 
 class Story extends React.Component {
     static propTypes = {
@@ -17,8 +17,8 @@ class Story extends React.Component {
     render() {
         return (
             <CardItem button onPress={this.props.onClick}>
+                <Thumbnail square size={100}  source={{uri: 'http://i.io.ua/img_su/small/0229/11/02291134_n1.jpg'}} />
                 <Text>Имя: {this.props.name}</Text>
-                <Text>Категория: {this.props.category}</Text>
                 <Text note>Длительность: {this.props.minutes}:{this.props.seconds}</Text>
                 <Text note>Цена: {this.props.price}</Text>
             </CardItem>

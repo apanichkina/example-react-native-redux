@@ -17,6 +17,7 @@ class Profile extends Component {
     }
     
     render() {
+        const { bluetoothState } = this.props;
         return (
             <Container theme={myTheme} style={styles.container}>
 
@@ -28,6 +29,7 @@ class Profile extends Component {
                 </Header>
 
                 <Content style={{padding: 16}}>
+                    <Text>Bluetooth: {bluetoothState}</Text>
                     <Text style={{ color: '#00C497' }} >Залогинен</Text>
                     <Text style={{  paddingTop: 5}} >Возраст ребенка</Text>
                     <InputGroup>
@@ -39,11 +41,18 @@ class Profile extends Component {
     }
 }
 
-function bindAction(dispatch) {
+
+const mapStateToProps = (state) => {
+    return {
+        bluetoothState: state.bluetooth.bluetoothState
+    }
+};
+const mapDispatchToProps = (dispatch) => {
     return {
         openDrawer: () => dispatch(openDrawer()),
         closeDrawer: () => dispatch(closeDrawer())
-    };
+    }
 }
 
-export default connect(null, bindAction)(Profile);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
