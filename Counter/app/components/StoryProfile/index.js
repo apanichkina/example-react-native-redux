@@ -68,7 +68,7 @@ class SProfile extends Component {
   }
 
   render() {
-    const { story, isBought } = this.props;
+    const { story, isBought, category } = this.props;
     return (
       <Container theme={myTheme} style={styles.container}>
         <Header>
@@ -84,22 +84,21 @@ class SProfile extends Component {
           <Card style={[styles.mb, { flex: 0 }]}>
 
             <CardItem>
-              <Image style={{ resizeMode: 'cover'}} source={story.illustration ?
-                   story.illustration
-                  : illustration_default}/>
-              </CardItem>
-
-            <CardItem>
               {story.category === 1 ?
                   <Icon name={logo_fun} />
                   : <Icon name={logo_default} />
               }
               <Text>{story.name}</Text>
+                <Text note>{category}</Text>
             </CardItem>
 
             <CardItem cardBody >
+                <Image style={{ resizeMode: 'cover', width: null}} source={story.illustration ?
+                   story.illustration
+                  : illustration_default}/>
+
               <View style={{ flexDirection:'row'}}>
-                <Button style={{ margin: 6, flex:1}}>
+                <Button style={{ margin: 6, marginLeft:0, flex:1}}>
                   <Icon name="ios-play" style={{ color: '#fff', margin: 5 }}/>
                 </Button>
 
@@ -121,21 +120,21 @@ class SProfile extends Component {
               {/* <Text style={{ paddingTop: 8, flex:1, fontSize: 15 }}>{this.themes[0].duration}</Text> */}
               <View style={{ flexDirection:'row'  }}>
                 {isBought ? <View style={{ flexDirection:'row',flex: 2}}>
-                            <Button style={{ margin: 6, flex:1}} >
+                            <Button style={{ margin: 6, marginLeft:0,marginRight:0, flex:1}} >
                               <Icon name="ios-cloud-upload" />
                             </Button>
                             <Button style={{ margin: 6, flex:1}} >
                               <Icon name="ios-trash" />
                             </Button>
                           </View>
-                        : <Button style={{ margin: 6, flex: 2}}
+                        : <Button style={{ margin: 6, marginLeft:0, flex: 2}}
                                   onPress={() => this.buyStory((story.id))}>
                             <Icon name="ios-basket" />
                             <Text style={{ color: '#fff'}}>{story.price} руб.</Text>
                           </Button>
                 }
 
-                <Button style={{ margin: 6, flex: 2}} >
+                <Button style={{ margin: 6, marginLeft:0,marginRight:0, flex: 2}} >
                   <Icon name="ios-share-alt" />
                   <Text>Поделиться</Text>
                 </Button>
@@ -159,8 +158,8 @@ const isStoryBought = (stories, id) => {
 const mapStateToProps = (state) => {
   return {
     story: getStoryById(state.storyFromServer.SHOP.items, state.story.storyId),
-    isBought: isStoryBought(state.storyFromServer.USER.items, state.story.storyId)
-
+    isBought: isStoryBought(state.storyFromServer.USER.items, state.story.storyId),
+    category: state.storyCategory.categoryFilter
   }
 };
 

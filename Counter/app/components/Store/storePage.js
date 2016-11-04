@@ -4,6 +4,8 @@ import styles from './styles';
 import { connect } from 'react-redux';
 import { pushNewRoute } from '../../actions/route';
 import { seeStory } from '../../actions/story';
+import { setCategoryFilter } from '../../actions/storyCategory';
+
 import Story from './story'
 
 class StorePage extends Component {
@@ -18,6 +20,7 @@ class StorePage extends Component {
     this.props.pushNewRoute(route);
   }
   onStoryClick(id) {
+    this.props.setCategoryFilter();
     this.props.onStoryClick(id);
     this.pushNewRoute('story-profile')
   }
@@ -51,9 +54,10 @@ const mapStateToProps = (state,ownProps) => {
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch,ownProps) => {
   return {
     onStoryClick: id => dispatch(seeStory(id)),
+    setCategoryFilter: () => dispatch(setCategoryFilter(ownProps.tabLabel)),
     pushNewRoute: route => dispatch(pushNewRoute(route))
   }
 };

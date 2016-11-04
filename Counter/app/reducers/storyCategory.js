@@ -12,7 +12,7 @@ export default function (state = initialState, action={}) {
         case 'SET_CATEGORY_FILTER':
             return {
                 ...state,
-                categoryFilter: action.categoryId
+                categoryFilter: action.category
             };
         case 'ADD_CATEGORY':
             return {

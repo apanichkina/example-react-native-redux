@@ -1,10 +1,10 @@
 import * as types from './actionTypes';
 
 
-export function setCategoryFilter(categoryId:number):Action {
+export function setCategoryFilter(category:string):Action {
     return {
         type: types.SET_CATEGORY_FILTER,
-        categoryId
+        category
     }
 }
 
