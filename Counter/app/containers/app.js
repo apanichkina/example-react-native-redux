@@ -12,12 +12,18 @@ import { receiveCategories } from '../actions/storyCategory'
 import { receiveStories } from '../actions/storyFromServer'
 import { setToken } from '../actions/user'
 import { PossiblePurposes } from '../actions/actionTypes'
-const loggerMiddleware = createLogger();
-const createStoreWithMiddleware = applyMiddleware(thunk,loggerMiddleware)(createStore);
+
+
+import TeddyBluetooth from './TeddyBluetooth'
+
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const reducer = combineReducers(reducers);
 const store = createStoreWithMiddleware(reducer);
 // Выведем в консоль начальное состояние
-console.log(store.getState())
+bl = TeddyBluetooth.getInstance();
+bl.play().then(result => console.log(result)).catch(error => console.log(error));
+bl2 = TeddyBluetooth.getInstance();
+bl2.getStoryList().then(result => console.log(result)).catch(error => console.log(error));
 
 // Каждый раз при обновлении состояния - выводим его
 // Отметим, что subscribe() возвращает функцию для отмены регистрации слушателя
@@ -34,15 +40,9 @@ console.log(store.getState())
 //store.dispatch(addStory('2Learn about store',333,3))
 //store.dispatch(addStory('Ann and her magic',13,5))
 store.dispatch(setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFubjQiLCJ0eXBlIjoidXNlciJ9.PBAP-SE2PLjRZ410osazlkwoC_s01x982xvYRbaiBfU'));
-store.dispatch(fetchCategories()).then(() =>
-        console.log(store.getState())
-)
-store.dispatch(fetchStories(PossiblePurposes.USER)).then(() =>
-        console.log(store.getState())
-)
-store.dispatch(fetchStories(PossiblePurposes.SHOP)).then(() =>
-        console.log(store.getState())
-)
+// store.dispatch(fetchCategories())
+// store.dispatch(fetchStories(PossiblePurposes.USER))
+// store.dispatch(fetchStories(PossiblePurposes.SHOP))
 
 // Прекратим слушать обновление состояния
 //unsubscribe()

@@ -7,6 +7,7 @@ import { openDrawer } from '../actions/drawer';
 import { popRoute, pushNewRoute } from '../actions/route';
 import AppNavigator from '../containers/AppNavigator'
 import myTheme from '../themes/base-theme';
+import TeddyBluetooth from '../containers/TeddyBluetooth.js'
 class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -21,6 +22,12 @@ class Home extends React.Component {
         this.props.popRoute();
     }
 
+    componentWillMount(){
+        var bl = TeddyBluetooth.getInstance();
+        bl.getStoryList().then(result => console.log(result)).catch(error => console.log(error));
+        var bl2 = TeddyBluetooth.getInstance();
+        bl2.getStoryList().then(result => console.log(result)).catch(error => console.log(error));
+    }
     pushNewRoute(route) {
         this.props.pushNewRoute(route);
     }

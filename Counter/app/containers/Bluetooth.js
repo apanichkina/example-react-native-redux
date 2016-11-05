@@ -11,7 +11,7 @@ import {
     Switch
     } from 'react-native'
 
-
+import TeddyBluetooth from './TeddyBluetooth'
 import BluetoothSerial from 'react-native-bluetooth-hc05'
 import {
     Buffer
@@ -24,10 +24,10 @@ var strings = {
     connecting: 'пытаюсь…',
     activateBT: 'Включить Bluetooth',
     title: 'Выбери медведя'
-}
+};
 
-global.Buffer = Buffer
-const iconv = require('iconv-lite')
+global.Buffer = Buffer;
+const iconv = require('iconv-lite');
 
 const Button = ({ label, onPress }) =>
     <TouchableOpacity style={styles.button} onPress={onPress}>
@@ -95,7 +95,7 @@ export default class Bluetooth extends Component {
         })
 
         BluetoothSerial.on('bluetoothDisabled', () => {
-            consile.log('Bluetooth disabled')
+            console.log('Bluetooth disabled')
             //Toast.showLongBottom('Bluetooth disabled')
         })
 
@@ -183,21 +183,29 @@ export default class Bluetooth extends Component {
      * @param  {Object} device
      */
     connect (device) {
-        this.setState({ connecting: true })
-        BluetoothSerial.connect(device.id)
+        this.setState({ connecting: true });
+        var bl = TeddyBluetooth.getInstance();
+        bl.connect(device.id)
             .then((res) => {
                 //Toast.showLongBottom(`Connected to device ${device.name}`)
-                console.log('Connected to device'+device.name)
+                console.log('Connected to device'+device.name);
                 //this.subscribe();
 
                 /* devicesToShow = devicesToShow.filter(function(item) {
                  return item.id !== device.id;
                  }); */
                 this.setState({ device, connected: true, connecting: false })
-                global.device = device;
-                Actions.mishka({ device: device });
+                // global.device = device;
+                // Actions.mishka({ device: device });
+                var bl = TeddyBluetooth.getInstance();
+                bl.getStoryList().then(result => console.log(result)).catch(error => console.log(error));
+
+                var bl2 = TeddyBluetooth.getInstance();
+                bl2.getStoryList().then(result => console.log(result)).catch(error => console.log(error));
+                BluetoothSerial.isConnected().then(result => console.log(result)).catch(error => console.log(error));
             })
             .catch((err) => {
+                console.log(err);
                 this.setState({ connected: false, connecting: false })
             })
     }
@@ -206,7 +214,8 @@ export default class Bluetooth extends Component {
      * Disconnect from bluetooth device
      */
     disconnect () {
-      BluetoothSerial.disconnect()
+        var bl = TeddyBluetooth.getInstance();
+      bl.disconnect()
           .then(() => {
               // this.setState({ connected: false })
               // this.unsubscribe();
@@ -233,7 +242,7 @@ export default class Bluetooth extends Component {
         BluetoothSerial.isConnected()
         .then((d) => { this.setState({connected: d})})
         .catch((err) => {
-                consile.log(err)
+                console.log(err)
                 //Toast.showLongBottom(err)
             })
     }
