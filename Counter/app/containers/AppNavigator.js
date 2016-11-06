@@ -9,7 +9,8 @@ import { popRoute } from '../actions/route';
 
 import Home from '../components/Home';
 import Anatomy from '../components/Anatomy/';
-import Store from './StorePage';
+import Store from './Store';
+import UserStories from './UserStories';
 import Counter from '../components/counter';
 import Bears from '../components/Bears/';
 import Profile from '../components/Profile/';
@@ -128,6 +129,8 @@ class AppNavigator extends Component {
                 return <Anatomy navigator={navigator} />;
             case 'store':
                 return <Store navigator={navigator} />;
+            case 'user-stories':
+                return <UserStories navigator={navigator} />;
             case 'counter':
                 return <Counter navigator={navigator} />;
             case 'bears':

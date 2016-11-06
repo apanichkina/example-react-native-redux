@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Content, Card} from 'native-base';
+import { Container, Content, Card, Text} from 'native-base';
 import styles from './styles';
 import Story from './storyListItem'
 
@@ -10,15 +10,18 @@ export default class StorePagePresentational extends Component {
     return (
       <Container style={styles.container}>
         <Content padder>
-          <Card>
-            {stories.map(story =>
-            <Story
-                key={story.id}
-                {...story}
-                onClick={() => onStoryClick((story.id))}
-                />
-            )}
-          </Card>
+          {stories.length ?
+              <Card>
+                { stories.map(story =>
+                    <Story
+                        key={story.id}
+                        {...story}
+                        onClick={() => onStoryClick((story.id))}
+                    />
+                )}
+              </Card>
+              : <Text>Упс, пока ничего нет =(</Text>
+          }
         </Content>
       </Container>
     );

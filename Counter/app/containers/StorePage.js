@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Container, Header, Title, View, Button, Icon, Tabs, Spinner } from 'native-base';
 import { openDrawer } from '../actions/drawer';
 import { popRoute } from '../actions/route';
-import { fetchStories } from '../actions/storyFromServer';
 import myTheme from '../themes/base-theme';
 import StorePage from './StoryList';
 import { PossiblePurposes } from '../actions/actionTypes'
@@ -12,17 +11,16 @@ class Store extends Component {
 
   static propTypes = {
     openDrawer: React.PropTypes.func,
-    fetchStories: React.PropTypes.func
+      title: React.PropTypes.string.isRequired,
+      stories: React.PropTypes.array.isRequired,
+      content: React.PropTypes.string.isRequired
   };
-    componentWillMount() {
-        this.props.fetchStories();
-    }
   render() {
-    const { categories, isFetching, openDrawer } = this.props;
+    const { openDrawer, title, stories, categories, content} = this.props;
     return (
       <Container theme={myTheme}>
         <Header>
-          <Title>Магазин сказок</Title>
+          <Title>{title}</Title>
 
           <Button transparent onPress={openDrawer}>
             <Icon name="ios-menu" />
@@ -36,10 +34,11 @@ class Store extends Component {
                       key={category.id}
                       tabLabel={category.name}
                       filter={category.id}
+                      stories={stories}
+                      content={content}
                       />
           )}
           </Tabs>
-            { isFetching ? <Spinner color='red' /> : null}
         </View>
       </Container>
     );
@@ -48,15 +47,13 @@ class Store extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      categories: state.storyCategory.categories,
-      isFetching: state.storyFromServer.SHOP.isFetching
+      categories: state.storyCategory.categories
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    openDrawer: () => dispatch(openDrawer()),
-    fetchStories: () => dispatch(fetchStories(PossiblePurposes.SHOP))
+    openDrawer: () => dispatch(openDrawer())
   }
 };
 

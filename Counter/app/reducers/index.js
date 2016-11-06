@@ -7,6 +7,7 @@ import story from './story'
 import user from './user'
 import storyFromServer from './storyFromServer'
 import bluetooth from './bluetooth'
+import bear from './bear'
 export {
     counter,
     drawer,
@@ -16,5 +17,6 @@ export {
     story,
     storyFromServer,
     user,
-    bluetooth
+    bluetooth,
+    bear
     };

@@ -16,6 +16,7 @@ var Slider = require('react-native-slider');
 const illustration_default = require('../../../img/illustration2.jpg');
 const logo_fun = 'ios-happy-outline';
 const logo_edu = 'ios-school-outline';
+const logo_night = 'ios-moon-outline';
 const logo_helper = 'ios-ionitron-outline';
 const logo_default = 'ios-book-outline';
 // Развлекательные ios-happy-outline
@@ -68,7 +69,22 @@ class SProfile extends Component {
   }
 
   render() {
-    const { story, isBought, category } = this.props;
+    const { story, isBought, category, isUpload } = this.props;
+      let logo = '';
+      switch(category) {
+          case "сказки":
+              logo = logo_fun;
+              break;
+          case "колыбельные":
+              logo = logo_night;
+              break;
+          case "помощник":
+              logo = logo_helper;
+              break;
+          default:
+              logo = logo_default;
+              break;
+      }
     return (
       <Container theme={myTheme} style={styles.container}>
         <Header>
@@ -84,11 +100,8 @@ class SProfile extends Component {
           <Card style={[styles.mb, { flex: 0 }]}>
 
             <CardItem>
-              {story.category === 1 ?
-                  <Icon name={logo_fun} />
-                  : <Icon name={logo_default} />
-              }
-              <Text>{story.name}</Text>
+                <Icon name={logo}/>
+                <Text>{story.name}</Text>
                 <Text note>{category}</Text>
             </CardItem>
 
@@ -119,19 +132,23 @@ class SProfile extends Component {
               </View>
               {/* <Text style={{ paddingTop: 8, flex:1, fontSize: 15 }}>{this.themes[0].duration}</Text> */}
               <View style={{ flexDirection:'row'  }}>
-                {isBought ? <View style={{ flexDirection:'row',flex: 2}}>
-                            <Button style={{ margin: 6, marginLeft:0,marginRight:0, flex:1}} >
-                              <Icon name="ios-cloud-upload" />
-                            </Button>
-                            <Button style={{ margin: 6, flex:1}} >
-                              <Icon name="ios-trash" />
-                            </Button>
-                          </View>
-                        : <Button style={{ margin: 6, marginLeft:0, flex: 2}}
-                                  onPress={() => this.buyStory((story.id))}>
-                            <Icon name="ios-basket" />
+                {!isBought ?
+                    <Button style={{ margin: 6, marginLeft:0, flex: 2}}
+                            onPress={() => this.buyStory((story.id))}>
+                        <Icon name="ios-basket" />
+                        {!!story.price ?
                             <Text style={{ color: '#fff'}}>{story.price} руб.</Text>
-                          </Button>
+                            : <Text style={{ color: '#fff'}}>Бесплатно</Text>
+                        }
+                    </Button>
+                    :  isUpload ?
+                    <Button style={{ margin: 6, marginLeft:0, flex:2}} >
+                        <Icon name="ios-cloud-upload" />
+                    </Button>
+                        :
+                        <Button style={{ margin: 6, marginLeft:0, flex:2}} >
+                            <Icon name="ios-trash" />
+                        </Button>
                 }
 
                 <Button style={{ margin: 6, marginLeft:0,marginRight:0, flex: 2}} >
@@ -148,10 +165,17 @@ class SProfile extends Component {
   }
 }
 
+
+const findElementByValue = (array, value) => {
+    return array.indexOf(value) !== -1;
+
+
+};
 const mapStateToProps = (state) => {
   return {
     story: state.storyFromServer.SHOP.stories[state.story.storyId],
     isBought: !!state.storyFromServer.USER.stories[state.story.storyId],
+    isUpload: findElementByValue(state.bear.bearStories,state.story.storyId),
     category: state.storyCategory.categoryFilter
   }
 };

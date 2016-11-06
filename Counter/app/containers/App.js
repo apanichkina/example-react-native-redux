@@ -6,6 +6,7 @@ import AppNavigator from '../containers/AppNavigator';
 import { connect, Provider } from 'react-redux';
 import * as reducers from '../reducers';
 import { addStory, buyStory } from '../actions/store'
+import { setBearStories } from '../actions/bear'
 import { setStoriesResource } from '../actions/story'
 import { fetchStories } from '../actions/storyFromServer'
 import { fetchCategories } from '../actions/storyCategory'
@@ -33,6 +34,8 @@ store.dispatch(fetchCategories())
 store.dispatch(fetchStories(PossiblePurposes.USER))
 store.dispatch(fetchStories(PossiblePurposes.SHOP))
 store.dispatch(setStoriesResource(PossiblePurposes.USER))
+const bearTalk = ["1.raw", "2.raw", "8"]
+store.dispatch(setBearStories(bearTalk));
 console.log(store.getState())
 // Прекратим слушать обновление состояния
 //unsubscribe()

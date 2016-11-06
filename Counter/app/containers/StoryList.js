@@ -5,7 +5,7 @@ import { pushNewRoute } from '../actions/route';
 import { seeStory } from '../actions/story';
 import { setCategoryFilter } from '../actions/storyCategory';
 
-import StorePage from '../components/Store/storyList'
+import StorePage from '../components/StoryList/storyList'
 
 class StorePageContainer extends Component {
   constructor(props) {
@@ -16,10 +16,14 @@ class StorePageContainer extends Component {
   static propTypes = {
     pushNewRoute: React.PropTypes.func,
     tabLabel: React.PropTypes.string,
-    stories: React.PropTypes.arrayOf(React.PropTypes.shape({
-      id: React.PropTypes.number.isRequired
-    }).isRequired).isRequired
+    stories: React.PropTypes.array,
+    filter:React.PropTypes.number,
+    content: React.PropTypes.string
   };
+  getFilteredStories(stories) {
+    let filter = this.props.filter;
+    return stories.filter(t => t.category == filter)
+  }
 
   onClick(id) {
     this.props.setCategoryFilter(this.props.tabLabel);
@@ -28,22 +32,45 @@ class StorePageContainer extends Component {
   }
 
   render() {
-    const { stories } = this.props;
+    const { storiesBear, storiesShop, storiesUser, content } = this.props;
+    let stories = [];
+    switch(content) {
+      case 'BEAR':
+        stories = storiesBear;
+        break;
+      case 'USER':
+        stories = storiesUser;
+        break;
+      case 'SHOP':
+        stories = storiesShop;
+        break;
+      default:
+            break;
+
+    }
     return (
             <StorePage
-                stories={stories}
+                stories={this.getFilteredStories(stories)}
                 onStoryClick={this.onClick}
                 />
     )
   }
 }
-const getFilteredStories = (stories, filter) => {
-      return stories.filter(t => t.category == filter)
-};
+const getStoriesByIndexes = (stories, indexes) => {
+  let fullStories = [];
 
-const mapStateToProps = (state,ownProps) => {
+  let storiesCount = indexes.length;
+  for (var i = 0; i < storiesCount; ++i) {
+    fullStories[i] = stories[indexes[i]];
+  }
+  return fullStories;
+
+};
+const mapStateToProps = (state) => {
   return {
-    stories: getFilteredStories(state.storyFromServer.SHOP.stories,ownProps.filter)
+    storiesShop: state.storyFromServer.SHOP.stories,
+    storiesUser: state.storyFromServer.USER.stories,
+    storiesBear: getStoriesByIndexes(state.storyFromServer.USER.stories, state.bear.bearStories)
   }
 };
 

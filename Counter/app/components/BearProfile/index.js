@@ -10,17 +10,13 @@ import TabOne from './storyPage';
 import TabTwo from './alarmPage';
 import TabThree from './helperPage.js';
 import ActionButton from 'react-native-action-button';
-
+import StoryList from '../../containers/StoryList';
 class BProfile extends Component {
 
     static propTypes = {
-        openDrawer: React.PropTypes.func,
-        closeDrawer: React.PropTypes.func,
         popRoute: React.PropTypes.func
     };
-    popRoute() {
-        this.props.popRoute();
-    }
+
     constructor(props) {
         super(props);
     }
@@ -42,24 +38,31 @@ class BProfile extends Component {
         }
     ];
     render() {
+        const { popRoute, categories} = this.props;
         return (
             <Container theme={myTheme} style={styles.container}>
 
                 <Header>
-                    <Button transparent onPress={()=>this.popRoute()}>
+                    <Button transparent onPress={()=>popRoute()}>
                         <Icon name="ios-arrow-back" />
                     </Button>
                     <Title>{this.bears[0].name}</Title>
-                    <Button transparent onPress={()=>this.popRoute()}>
+                    <Button transparent onPress={()=>popRoute()}>
                         <Icon name="ios-settings" />
                     </Button>
                 </Header>
 
                 <Content>
                     <Tabs locked>
-                        <TabOne tabLabel="Сказки" />
-                        <TabTwo tabLabel="Будильник" />
-                        <TabThree tabLabel="Помощник" />
+                        {categories.map(category =>
+                                <StoryList
+                                    key={category.id}
+                                    tabLabel={category.name}
+                                    filter={category.id}
+                                    stories={[]}
+                                    content={'BEAR'}
+                                    />
+                        )}
                     </Tabs>
                 </Content>
             </Container>
@@ -68,12 +71,20 @@ class BProfile extends Component {
     }
 }
 
-function bindAction(dispatch) {
+const mapStateToProps = (state) => {
     return {
-        openDrawer: () => dispatch(openDrawer()),
-        closeDrawer: () => dispatch(closeDrawer()),
-        popRoute: () => dispatch(popRoute())
-    };
-}
+        categories: state.storyCategory.categories
+    }
+};
 
-export default connect(null, bindAction)(BProfile);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        popRoute: () => dispatch(popRoute())
+    }
+};
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(BProfile)

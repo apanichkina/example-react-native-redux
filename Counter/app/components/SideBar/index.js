@@ -63,6 +63,14 @@ class SideBar extends Component {
                             <Text style={styles.text}>Магазин сказок</Text>
                         </View>
                     </ListItem>
+                    <ListItem button iconLeft onPress={() => this.navigateTo('user-stories')} >
+                        <View style={styles.listItemContainer}>
+                            <View style={[styles.iconContainer, { paddingLeft: 14 }]}>
+                                <Icon name="ios-cart" style={styles.sidebarIcon} />
+                            </View>
+                            <Text style={styles.text}>Мои сказки</Text>
+                        </View>
+                    </ListItem>
                     <ListItem button iconLeft onPress={() => this.navigateTo('bears')} >
                         <View style={styles.listItemContainer}>
                             <View style={[styles.iconContainer, { paddingLeft: 14 }]}>
