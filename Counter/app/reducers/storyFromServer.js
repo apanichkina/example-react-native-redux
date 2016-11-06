@@ -3,10 +3,10 @@
 const initialState = {
     isFetching: false,
     didInvalidate: false,
-    items: []
+    stories: []
 };
 
-function posts(state = initialState, action={}) {
+function stories(state = initialState, action={}) {
     switch (action.type) {
         case 'INVALIDATE_PURPOSE':
             return Object.assign({}, state, {
@@ -21,7 +21,7 @@ function posts(state = initialState, action={}) {
             return Object.assign({}, state, {
                 isFetching: false,
                 didInvalidate: false,
-                items: action.posts,
+                stories: action.stories,
                 lastUpdated: action.receivedAt
             });
         default:
@@ -32,24 +32,27 @@ function posts(state = initialState, action={}) {
 function addInnerState(state = initialState, action={}, newStory={}) {
     switch (action.type) {
         case 'BUY_STORY':
+            let storiesArray = state.stories;
+            storiesArray[action.id] = newStory;
             return Object.assign({}, state, {
-                items: [...state.items, newStory]
+                stories: storiesArray
             });
         default:
             return state
     }
 }
 
-function postsByPurpose(state = {}, action={}) {
+function storiesByPurpose(state = {}, action={}) {
     switch (action.type) {
         case 'INVALIDATE_PURPOSE':
         case 'RECEIVE_STORIES':
         case 'REQUEST_STORIES':
             return Object.assign({}, state, {
-                [action.purpose]: posts(state[action.purpose], action)
+                [action.purpose]: stories(state[action.purpose], action)
             });
         case 'BUY_STORY':
-            let boughtStory= state.SHOP.items.filter(t => t.id == action.id)[0];
+            let boughtStory= state.SHOP.stories[action.id];
+            if (!boughtStory) break;
             return Object.assign({}, state, {
                 ['USER']: addInnerState(state['USER'], action, boughtStory)
             });
@@ -61,4 +64,4 @@ function postsByPurpose(state = {}, action={}) {
 
 
 
-export default postsByPurpose
+export default storiesByPurpose

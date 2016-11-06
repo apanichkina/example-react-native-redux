@@ -7,10 +7,13 @@ export function requestStories(purpose:string):Action {
     }
 }
 export function receiveStories(purpose, json):Action {
+    let arr = json.body.stories;
+    let storiesArray=[];
+    arr.forEach(function(item,i,arr){storiesArray[item.id] = item});
     return {
         type: types.RECEIVE_STORIES,
         purpose,
-        posts: json.body.stories.map(child => child),
+        stories: storiesArray,
         receivedAt: Date.now()
     }
 }

@@ -69,6 +69,9 @@ class SProfile extends Component {
 
   render() {
     const { story, isBought, category } = this.props;
+      console.log(story)
+      console.log(isBought)
+      console.log(category)
     return (
       <Container theme={myTheme} style={styles.container}>
         <Header>
@@ -148,17 +151,10 @@ class SProfile extends Component {
   }
 }
 
-const getStoryById = (stories, id) => {
-  let storyArr = stories.filter(t => t.id === id);
-  return storyArr[0]
-};
-const isStoryBought = (stories, id) => {
-  return !!getStoryById(stories, id);
-}
 const mapStateToProps = (state) => {
   return {
-    story: getStoryById(state.storyFromServer.SHOP.items, state.story.storyId),
-    isBought: isStoryBought(state.storyFromServer.USER.items, state.story.storyId),
+    story: state.storyFromServer.SHOP.stories[state.story.storyId],
+    isBought: !!state.storyFromServer.USER.stories[state.story.storyId],
     category: state.storyCategory.categoryFilter
   }
 };

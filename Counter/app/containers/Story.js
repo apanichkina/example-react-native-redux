@@ -188,6 +188,7 @@ export default class MStory extends Component {
              incomming data: {this.state.incommingData || 'nothing'} 
           </Text>
             <Button onPress={() => this.play(2)}>Play 2</Button>
+            <Button onPress={() => this.downloadFile(2)}>Download 2</Button>
         </View>
         <View>
           <Text>

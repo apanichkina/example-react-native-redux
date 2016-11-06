@@ -13,11 +13,11 @@ import { receiveStories } from '../actions/storyFromServer'
 import { setToken } from '../actions/user'
 import { PossiblePurposes } from '../actions/actionTypes'
 const loggerMiddleware = createLogger();
-const createStoreWithMiddleware = applyMiddleware(thunk,loggerMiddleware)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk, loggerMiddleware)(createStore);
 const reducer = combineReducers(reducers);
 const store = createStoreWithMiddleware(reducer);
 // Выведем в консоль начальное состояние
-console.log(store.getState())
+//console.log(store.getState())
 
 // Каждый раз при обновлении состояния - выводим его
 // Отметим, что subscribe() возвращает функцию для отмены регистрации слушателя
@@ -33,17 +33,11 @@ console.log(store.getState())
 //store.dispatch(addCategory('Category2',2))
 //store.dispatch(addStory('2Learn about store',333,3))
 //store.dispatch(addStory('Ann and her magic',13,5))
-store.dispatch(setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFubjQiLCJ0eXBlIjoidXNlciJ9.PBAP-SE2PLjRZ410osazlkwoC_s01x982xvYRbaiBfU'));
-//store.dispatch(fetchCategories()).then(() =>
-//        console.log(store.getState())
-//)
-//store.dispatch(fetchStories(PossiblePurposes.USER)).then(() =>
-//        console.log(store.getState())
-//)
-//store.dispatch(fetchStories(PossiblePurposes.SHOP)).then(() =>
-//        console.log(store.getState())
-//)
-
+store.dispatch(setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFubjUiLCJ0eXBlIjoidXNlciJ9.q0rfvakitLcruw0uwFm6iwXaqMcBRm-xXQV9Dd6ppwE'));
+store.dispatch(fetchCategories())
+store.dispatch(fetchStories(PossiblePurposes.USER))
+store.dispatch(fetchStories(PossiblePurposes.SHOP))
+console.log(store.getState())
 // Прекратим слушать обновление состояния
 //unsubscribe()
 export default class App extends React.Component  {

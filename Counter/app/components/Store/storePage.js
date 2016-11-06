@@ -50,7 +50,7 @@ const getFilteredStories = (stories, filter) => {
 
 const mapStateToProps = (state,ownProps) => {
   return {
-    stories: getFilteredStories(state.storyFromServer.SHOP.items,ownProps.filter)
+    stories: getFilteredStories(state.storyFromServer.SHOP.stories,ownProps.filter)
   }
 };
 

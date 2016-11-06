@@ -1,20 +1,24 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Header, Title, View, Button, Icon, Tabs } from 'native-base';
+import { Container, Header, Title, View, Button, Icon, Tabs, Spinner } from 'native-base';
 import { openDrawer } from '../../actions/drawer';
 import { popRoute } from '../../actions/route';
+import { fetchStories } from '../../actions/storyFromServer';
 import myTheme from '../../themes/base-theme';
 import StorePage from './storePage';
-
+import { PossiblePurposes } from '../../actions/actionTypes'
 class Store extends Component {
 
   static propTypes = {
-    openDrawer: React.PropTypes.func
+    openDrawer: React.PropTypes.func,
+      fetchStories: React.PropTypes.func
   };
-
+    componentWillMount() {
+        this.props.fetchStories();
+    }
   render() {
-    const { categories } = this.props;
+    const { categories, isFetching } = this.props;
     return (
       <Container theme={myTheme}>
         <Header>
@@ -35,6 +39,7 @@ class Store extends Component {
                       />
           )}
           </Tabs>
+            { isFetching ? <Spinner color='red' /> : null}
         </View>
       </Container>
     );
@@ -43,13 +48,15 @@ class Store extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      categories: state.storyCategory.categories
+      categories: state.storyCategory.categories,
+      isFetching: state.storyFromServer.SHOP.isFetching
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    openDrawer: () => dispatch(openDrawer())
+    openDrawer: () => dispatch(openDrawer()),
+    fetchStories: () => dispatch(fetchStories(PossiblePurposes.SHOP))
   }
 };
 
