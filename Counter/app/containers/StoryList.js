@@ -1,47 +1,40 @@
 import React, { Component } from 'react';
 import { Container, Content, Card} from 'native-base';
-import styles from './styles';
 import { connect } from 'react-redux';
-import { pushNewRoute } from '../../actions/route';
-import { seeStory } from '../../actions/story';
-import { setCategoryFilter } from '../../actions/storyCategory';
+import { pushNewRoute } from '../actions/route';
+import { seeStory } from '../actions/story';
+import { setCategoryFilter } from '../actions/storyCategory';
 
-import Story from './story'
+import StorePage from '../components/Store/storyList'
 
-class StorePage extends Component {
+class StorePageContainer extends Component {
+  constructor(props) {
+    super(props)
+    this.onClick = this.onClick.bind(this)
+  }
+
   static propTypes = {
     pushNewRoute: React.PropTypes.func,
+    tabLabel: React.PropTypes.string,
     stories: React.PropTypes.arrayOf(React.PropTypes.shape({
       id: React.PropTypes.number.isRequired
     }).isRequired).isRequired
   };
 
-  pushNewRoute(route) {
-    this.props.pushNewRoute(route);
-  }
-  onStoryClick(id) {
-    this.props.setCategoryFilter();
+  onClick(id) {
+    this.props.setCategoryFilter(this.props.tabLabel);
     this.props.onStoryClick(id);
-    this.pushNewRoute('story-profile')
+    this.props.pushNewRoute('story-profile')
   }
 
   render() {
     const { stories } = this.props;
     return (
-      <Container style={styles.container}>
-        <Content padder>
-          <Card>
-            {stories.map(story =>
-            <Story
-                key={story.id}
-                {...story}
-                onClick={() => this.onStoryClick((story.id))}
+            <StorePage
+                stories={stories}
+                onStoryClick={this.onClick}
                 />
-            )}
-          </Card>
-        </Content>
-      </Container>
-    );
+    )
   }
 }
 const getFilteredStories = (stories, filter) => {
@@ -54,10 +47,10 @@ const mapStateToProps = (state,ownProps) => {
   }
 };
 
-const mapDispatchToProps = (dispatch,ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onStoryClick: id => dispatch(seeStory(id)),
-    setCategoryFilter: () => dispatch(setCategoryFilter(ownProps.tabLabel)),
+    setCategoryFilter: (name) => dispatch(setCategoryFilter(name)),
     pushNewRoute: route => dispatch(pushNewRoute(route))
   }
 };
@@ -65,4 +58,4 @@ const mapDispatchToProps = (dispatch,ownProps) => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(StorePage)
+)(StorePageContainer)

@@ -9,7 +9,7 @@ import { popRoute } from '../actions/route';
 
 import Home from '../components/Home';
 import Anatomy from '../components/Anatomy/';
-import Store from '../components/Store/';
+import Store from './StorePage';
 import Counter from '../components/counter';
 import Bears from '../components/Bears/';
 import Profile from '../components/Profile/';

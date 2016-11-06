@@ -22,6 +22,8 @@ export const BUY_STORY = 'BUY_STORY';
 
 export const INVALIDATE_PURPOSE = 'INVALIDATE_PURPOSE';
 export const SEE_STORY = 'SEE_STORY';
+export const SET_STORIES_RESOURCE = 'SET_STORIES_RESOURCE';
+
 
 export const SET_USER_TOKEN = 'SET_USER_TOKEN';
 

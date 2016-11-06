@@ -69,9 +69,6 @@ class SProfile extends Component {
 
   render() {
     const { story, isBought, category } = this.props;
-      console.log(story)
-      console.log(isBought)
-      console.log(category)
     return (
       <Container theme={myTheme} style={styles.container}>
         <Header>

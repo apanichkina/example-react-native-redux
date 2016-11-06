@@ -6,3 +6,9 @@ export function seeStory(id:number):Action {
         id
     }
 }
+export function setStoriesResource(storiesResource:string):Action {
+    return {
+        type: types.SET_STORIES_RESOURCE,
+        storiesResource
+    }
+}

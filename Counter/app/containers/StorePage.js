@@ -2,29 +2,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Header, Title, View, Button, Icon, Tabs, Spinner } from 'native-base';
-import { openDrawer } from '../../actions/drawer';
-import { popRoute } from '../../actions/route';
-import { fetchStories } from '../../actions/storyFromServer';
-import myTheme from '../../themes/base-theme';
-import StorePage from './storePage';
-import { PossiblePurposes } from '../../actions/actionTypes'
+import { openDrawer } from '../actions/drawer';
+import { popRoute } from '../actions/route';
+import { fetchStories } from '../actions/storyFromServer';
+import myTheme from '../themes/base-theme';
+import StorePage from './StoryList';
+import { PossiblePurposes } from '../actions/actionTypes'
 class Store extends Component {
 
   static propTypes = {
     openDrawer: React.PropTypes.func,
-      fetchStories: React.PropTypes.func
+    fetchStories: React.PropTypes.func
   };
     componentWillMount() {
         this.props.fetchStories();
     }
   render() {
-    const { categories, isFetching } = this.props;
+    const { categories, isFetching, openDrawer } = this.props;
     return (
       <Container theme={myTheme}>
         <Header>
           <Title>Магазин сказок</Title>
 
-          <Button transparent onPress={this.props.openDrawer}>
+          <Button transparent onPress={openDrawer}>
             <Icon name="ios-menu" />
           </Button>
         </Header>

@@ -1,7 +1,8 @@
 
 
 const initialState = {
-    storyId: 0
+    storyId: 0,
+    storiesResource: 'SHOP'
 };
 
 export default function (state = initialState, action={}) {
@@ -11,6 +12,11 @@ export default function (state = initialState, action={}) {
                 storyId: action.id
                 
             };
+        case 'SET_STORIES_RESOURCE':
+        return {
+            ...state,
+            storiesResource: action.storiesResource
+        };
         default:
             return state
     }
