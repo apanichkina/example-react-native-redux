@@ -6,6 +6,7 @@ import AppNavigator from '../containers/AppNavigator';
 import { connect, Provider } from 'react-redux';
 import * as reducers from '../reducers';
 import { addStory, buyStory } from '../actions/store'
+import { setStoriesResource } from '../actions/story'
 import { fetchStories } from '../actions/storyFromServer'
 import { fetchCategories } from '../actions/storyCategory'
 import { receiveCategories } from '../actions/storyCategory'
@@ -13,7 +14,7 @@ import { receiveStories } from '../actions/storyFromServer'
 import { setToken } from '../actions/user'
 import { PossiblePurposes } from '../actions/actionTypes'
 const loggerMiddleware = createLogger();
-const createStoreWithMiddleware = applyMiddleware(thunk, loggerMiddleware)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const reducer = combineReducers(reducers);
 const store = createStoreWithMiddleware(reducer);
 // Выведем в консоль начальное состояние
@@ -25,18 +26,13 @@ const store = createStoreWithMiddleware(reducer);
 //        console.log(store.getState())
 //)
 
-// Отправим несколько действий
-//store.dispatch(addStory('0Learn about actions',999, 1))
-//store.dispatch(addStory('1Learn about reducers',10, 1))
-//store.dispatch(addStory('2Learn about store',33,2))
-//store.dispatch(addCategory('Category1',1))
-//store.dispatch(addCategory('Category2',2))
-//store.dispatch(addStory('2Learn about store',333,3))
-//store.dispatch(addStory('Ann and her magic',13,5))
 store.dispatch(setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFubjUiLCJ0eXBlIjoidXNlciJ9.q0rfvakitLcruw0uwFm6iwXaqMcBRm-xXQV9Dd6ppwE'));
+
 store.dispatch(fetchCategories())
+
 store.dispatch(fetchStories(PossiblePurposes.USER))
 store.dispatch(fetchStories(PossiblePurposes.SHOP))
+store.dispatch(setStoriesResource(PossiblePurposes.USER))
 console.log(store.getState())
 // Прекратим слушать обновление состояния
 //unsubscribe()
