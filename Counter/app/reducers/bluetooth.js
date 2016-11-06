@@ -3,7 +3,8 @@
 const initialState = {
     bluetoothEnabled: false,
     bluetoothConnected: false,
-    isConnecting: false
+    isConnecting: false,
+    searchBears: []
 };
 
 export default function (state= initialState, action={}) {
@@ -29,6 +30,11 @@ export default function (state= initialState, action={}) {
             return {
                 ...state,
                 bluetoothConnected: false
+            };
+        case 'SEARCH_BEARS':
+            return {
+                ...state,
+                searchBears: action.devices
             };
         default:
             return state;

@@ -20,25 +20,9 @@ class BProfile extends Component {
     constructor(props) {
         super(props);
     }
-    bears = [
-        {
-            name: 'Потапыч',
-            selected: true,
-            route: ()=>{this.pushNewRoute('bear-profile')}
-        },
-        {
-            name: 'Копатыч',
-            selected: false,
-            route: ()=>{this.pushNewRoute('bear-profile')}
-        },
-        {
-            name: 'Медведич',
-            selected: false,
-            route: ()=>{this.pushNewRoute('bear-profile')}
-        }
-    ];
+
     render() {
-        const { popRoute, categories} = this.props;
+        const { popRoute, categories, name} = this.props;
         return (
             <Container theme={myTheme} style={styles.container}>
 
@@ -46,7 +30,7 @@ class BProfile extends Component {
                     <Button transparent onPress={()=>popRoute()}>
                         <Icon name="ios-arrow-back" />
                     </Button>
-                    <Title>{this.bears[0].name}</Title>
+                    <Title>{name}</Title>
                     <Button transparent onPress={()=>popRoute()}>
                         <Icon name="ios-settings" />
                     </Button>
@@ -73,6 +57,7 @@ class BProfile extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        name: state.bear.connectedBearName,
         categories: state.storyCategory.categories
     }
 };

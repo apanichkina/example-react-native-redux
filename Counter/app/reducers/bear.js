@@ -1,7 +1,8 @@
 
 
 const initialState = {
-    bearStories: []
+    bearStories: [],
+    connectedBearName: ''
 };
 
 export default function (state = initialState, action={}) {
@@ -10,6 +11,11 @@ export default function (state = initialState, action={}) {
             return {
                 ...state,
                 bearStories: action.stories
+            };
+        case 'SET_CONNECTED_BEAR_NAME':
+            return {
+                ...state,
+                connectedBearName: action.name
             };
         default:
             return state

@@ -1,44 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Header, Title, Content, Text, List, ListItem, Radio, Button, Icon } from 'native-base';
+import { Container, Header, Title, Content, Text, List, ListItem, Card, CardItem, Radio, Button, Icon } from 'native-base';
 
-import { openDrawer, closeDrawer } from '../../actions/drawer';
+import { openDrawer } from '../../actions/drawer';
 import { pushNewRoute } from '../../actions/route';
+import { searchBears } from '../../actions/bluetooth';
+import { setConnectedBearName } from '../../actions/bear';
+
 import styles from './styles';
 import myTheme from '../../themes/base-theme';
 class Bears extends Component {
 
     static propTypes = {
         openDrawer: React.PropTypes.func,
-        closeDrawer: React.PropTypes.func,
-        pushNewRoute: React.PropTypes.func
+        pushNewRoute: React.PropTypes.func,
+        searchBears: React.PropTypes.func,
+        setConnectedBearName: React.PropTypes.func
     };
 
     constructor(props) {
         super(props);
     }
-    pushNewRoute(route) {
-        this.props.pushNewRoute(route);
+    onBearClick(name) {
+        this.props.setConnectedBearName(name);
+        this.props.pushNewRoute('bear-profile');
     }
 
-    items = [
-        {
-            name: 'Потапыч',
-            selected: true,
-            route: ()=>{this.pushNewRoute('bear-profile')}
-        },
-        {
-            name: 'Копатыч',
-            selected: false,
-            route: ()=>{this.pushNewRoute('bear-profile')}
-        },
-        {
-            name: 'Медведич',
-            selected: false,
-            route: ()=>{this.pushNewRoute('bear-profile')}
-        }
-    ];
     render() {
+        const {bears, searchBears} = this.props;
         return (
             <Container theme={myTheme} style={styles.container}>
 
@@ -48,32 +37,42 @@ class Bears extends Component {
                     </Button>
                     <Title>Примедведиться</Title>
                 </Header>
-
                 <Content>
-                    <List dataArray={this.items}
-                          renderRow={(item) =>
-                            <ListItem button onPress={item.route}>
-                                <Radio selected={item.selected} />
+                <List dataArray={bears}
+                      renderRow={(item) =>
+                            <ListItem button onPress={()=>{this.onBearClick(item.name)}}>
+                             <Text>id: {item.id}</Text>
                                 <Text>{item.name}</Text>
                             </ListItem>
                         }>
-                    </List>
-                    <Button style={styles.btn_search}>
+                </List>
+                    <Button style={styles.btn_search} onPress={searchBears}>
                         <Icon name='ios-search' />
                         Найти
                     </Button>
-                </Content>
+                    </Content>
             </Container>
         );
     }
 }
 
-function bindAction(dispatch) {
+const mapStateToProps = (state) => {
+    return {
+        bears: state.bluetooth.searchBears
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
     return {
         openDrawer: () => dispatch(openDrawer()),
-        closeDrawer: () => dispatch(closeDrawer()),
-        pushNewRoute: route => dispatch(pushNewRoute(route))
-    };
-}
+        pushNewRoute: route => dispatch(pushNewRoute(route)),
+        setConnectedBearName: name => dispatch(setConnectedBearName(name)),
+        searchBears: () => dispatch(searchBears([{"id": 1, "name": "HC-Mishka"}, {"id": 2, "name": "Vrunishka"}, {"id": 3, "name": "HC-Hrun"}]))
+    }
+};
 
-export default connect(null, bindAction)(Bears);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Bears)

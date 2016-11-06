@@ -13,3 +13,10 @@ export function setBearStories(stories):Action {
         stories: bearStories
     }
 }
+export function setConnectedBearName(name:string):Action {
+    return {
+        type: types.SET_CONNECTED_BEAR_NAME,
+        name
+    }
+}
+
