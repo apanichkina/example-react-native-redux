@@ -5,8 +5,9 @@ import { Image } from 'react-native';
 import { Container, Header, Title, Content, Button, Icon, Card, CardItem, Text, Thumbnail, View } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { openDrawer } from '../../actions/drawer';
-import { popRoute } from '../../actions/route';
+import { popRoute, pushNewRoute } from '../../actions/route';
 import { buyStory } from '../../actions/store';
+import { uploadStoryToBear, deleteStoryFromBear } from '../../actions/bear';
 import { fetchBuyStory } from '../../actions/store';
 import StoryCard from './storyCard'
 import styles from './styles';
@@ -24,11 +25,15 @@ class SProfile extends Component {
 
   static propTypes = {
     popRoute: React.PropTypes.func,
-    openDrawer: React.PropTypes.func
+      pushNewRoute: React.PropTypes.func,
+    openDrawer: React.PropTypes.func,
   };
 
   popRoute() {
     this.props.popRoute();
+  }
+  connectBear() {
+      this.props.pushNewRoute('bears')
   }
   buyStory(id) {
     this.props.buyStory(id);
@@ -36,17 +41,19 @@ class SProfile extends Component {
   }
   uploadStory(id) {
       console.log('upload'+id);
+      this.props.uploadStoryToBear(id);
       //this.props.buyStory(id);
 
   }
   deleteStory(id) {
       console.log('delete'+id);
+      this.props.deleteStoryFromBear(id);
      // this.props.buyStory(id);
 
   }
 
   render() {
-    const { story, isBought, category, isUpload } = this.props;
+    const { story, isBought, category, isUpload, isConnected} = this.props;
       let logo = '';
       switch(category) {
           case "сказки":
@@ -78,11 +85,13 @@ class SProfile extends Component {
                 onBuyClick={()=>{this.buyStory(story.id)}}
                 onUploadClick={()=>{this.uploadStory(story.id)}}
                 onDeleteClick={()=>{this.deleteStory(story.id)}}
+                onConnectBear={()=>{this.connectBear()}}
                 isUpload={isUpload}
+                isConnected={isConnected}
                 isBought={isBought}
                 logo={logo}
                 category={category}
-                illustration={{uri: 'https://storage.googleapis.com/hardteddy_images/small/66.jpg'}}
+                illustration={{uri: 'https://storage.googleapis.com/hardteddy_images/large/'+story.id+'.jpg'}}
                 />
 
         </Content>
@@ -102,15 +111,19 @@ const mapStateToProps = (state) => {
     story: state.storyFromServer.SHOP.stories[state.story.storyId],
     isBought: !!state.storyFromServer.USER.stories[state.story.storyId],
     isUpload: findElementByValue(state.bear.bearStories,state.story.storyId),
-    category: state.storyCategory.categoryFilter
+    category: state.storyCategory.categoryFilter,
+    isConnected: !!state.bluetooth.bluetoothConnected
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    buyStory: id => dispatch(fetchBuyStory(id)),
-    openDrawer: () => dispatch(openDrawer()),
-    popRoute: () => dispatch(popRoute())
+      buyStory: id => dispatch(fetchBuyStory(id)),
+      uploadStoryToBear: id => dispatch(uploadStoryToBear(id)),
+      deleteStoryFromBear: id => dispatch(deleteStoryFromBear(id)),
+      openDrawer: () => dispatch(openDrawer()),
+      popRoute: () => dispatch(popRoute()),
+      pushNewRoute: route => dispatch(pushNewRoute(route))
   }
 };
 

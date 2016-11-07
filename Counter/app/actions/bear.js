@@ -31,3 +31,37 @@ export function setBearStories() {
             });
     }
 }
+export function uploadStory(id:number):Action {
+    return {
+        type: types.UPLOAD_STORY,
+        id
+    }
+}
+export function deleteStory(id:number):Action {
+    return {
+        type: types.DELETE_STORY,
+        id
+    }
+}
+
+export function uploadStoryToBear(id) {
+    let instance = Bluetooth.getInstance();
+    return function (dispatch) {
+        return instance.downloadFile(id).then(() => {dispatch(uploadStory(id))}
+        ).catch((error) => {
+                console.log('upload story error:');
+                console.log(error)
+            });
+    }
+}
+
+export function deleteStoryFromBear(id) {
+    let instance = Bluetooth.getInstance();
+    return function (dispatch) {
+        return instance.removeFile(id).then(() => {dispatch(deleteStory(id))}
+        ).catch((error) => {
+                console.log('delete story error:');
+                console.log(error)
+            });
+    }
+}

@@ -27,7 +27,7 @@ const store = createStoreWithMiddleware(reducer);
 //        console.log(store.getState())
 //)
 
-store.dispatch(setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFubjUiLCJ0eXBlIjoidXNlciJ9.q0rfvakitLcruw0uwFm6iwXaqMcBRm-xXQV9Dd6ppwE'));
+store.dispatch(setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImpvcGEiLCJ0eXBlIjoidXNlciJ9.2QyJX3PfqDFzv24Dt5jB-ZHO0dBWeuzayO0ezjmvYGA'));
 
 store.dispatch(fetchCategories())
 

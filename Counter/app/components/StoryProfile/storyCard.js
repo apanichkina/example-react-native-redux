@@ -7,7 +7,7 @@ const illustration_default = require('../../../img/illustration2.jpg');
 export default class StoryCard extends Component {
 
   render() {
-    const { name, illustration, price, description, onBuyClick, onUploadClick, onDeleteClick, isUpload, isBought, logo, category   } = this.props;
+    const { name, illustration, price, description, onBuyClick, onUploadClick, onDeleteClick, isUpload, isBought, logo, category, isConnected, onConnectBear   } = this.props;
     return (
         <Card style={[styles.mb, { flex: 0 }]}>
 
@@ -50,14 +50,18 @@ export default class StoryCard extends Component {
                                 : <Text style={{ color: '#fff'}}>Бесплатно</Text>
                             }
                         </Button>
-                        :  !isUpload ?
-                        <Button style={{ margin: 6, marginLeft:0, flex:2}} onPress={onUploadClick}>
-                            <Icon name="ios-cloud-upload" />
-                        </Button>
-                        :
-                        <Button style={{ margin: 6, marginLeft:0, flex:2}} onPress={onDeleteClick}>
-                            <Icon name="ios-trash" />
-                        </Button>
+                        :  !isConnected ?
+                            <Button style={{ margin: 6, marginLeft:0, flex:2, color:'#F06292'}} onPress={onConnectBear}>
+                                Примедведиться
+                            </Button>
+                        : isUpload ?
+                            <Button style={{ margin: 6, marginLeft:0, flex:2}} onPress={onDeleteClick}>
+                                <Icon name="ios-trash" />
+                            </Button>
+                        :   <Button style={{ margin: 6, marginLeft:0, flex:2}} onPress={onUploadClick}>
+                                <Icon name="ios-cloud-upload" />
+                            </Button>
+
                     }
 
                     <Button style={{ margin: 6, marginLeft:0,marginRight:0, flex: 2}} >
@@ -81,7 +85,9 @@ StoryCard.propTypes = {
     onBuyClick: React.PropTypes.func,
     onUploadClick: React.PropTypes.func,
     onDeleteClick: React.PropTypes.func,
+    onConnectBear: React.PropTypes.func,
     isUpload: React.PropTypes.bool,
     isBought: React.PropTypes.bool,
+    isConnected: React.PropTypes.bool,
     logo: React.PropTypes.string.isRequired
 };

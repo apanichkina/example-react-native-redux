@@ -18,17 +18,6 @@ export default function (state = initialState, action={}) {
                     }
                 ]
             };
-        case 'BUY_STORY':
-            return  {
-                stories: state.stories.map((story) => {
-                    if (story.id === action.id) {
-                        return Object.assign({}, story, {
-                            bought: true
-                        })
-                    }
-                    return story
-                })
-            };
         default:
             return state
     }
