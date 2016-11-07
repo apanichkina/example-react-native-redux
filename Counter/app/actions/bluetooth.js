@@ -1,4 +1,6 @@
 import * as types from './actionTypes';
+import Bluetooth from '../BluetoothLib'
+import { setBearStories} from './bear'
 
 export function enableBluetooth():Action {
     return {
@@ -23,7 +25,7 @@ export function unconnectBluetooth():Action {
     };
 }
 
-export function searchBears(devices):Action {
+export function receiveBears(devices):Action {
     let arr = devices;
     let bears=[];
     arr.forEach(function(item,i,arr){
@@ -34,4 +36,28 @@ export function searchBears(devices):Action {
         type: types.SEARCH_BEARS,
         devices: bears
     };
+}
+
+export function searchBears() {
+    let instance = Bluetooth.getInstance();
+    return function (dispatch) {
+        return instance.list().then(array => {console.log(array); dispatch(receiveBears(array))}
+        ).catch((error) => {
+                console.log('bear search error:');
+                console.log(error)
+            });
+    }
+}
+export function connectToDevice(id) {
+    let instance = Bluetooth.getInstance();
+    return function (dispatch) {
+        return instance.connect(id).then(() => {
+                dispatch(connectBluetooth());
+                dispatch(setBearStories())
+            }
+        ).catch((error) => {
+                console.log('connect ti device error:');
+                console.log(error)
+            });
+    }
 }

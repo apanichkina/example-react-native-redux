@@ -35,7 +35,8 @@ store.dispatch(fetchStories(PossiblePurposes.USER))
 store.dispatch(fetchStories(PossiblePurposes.SHOP))
 store.dispatch(setStoriesResource(PossiblePurposes.USER))
 const bearTalk = ["1.raw", "2.raw", "8"]
-store.dispatch(setBearStories(bearTalk));
+console.log('!!!!!!!!!');
+//store.dispatch(setBearStories());
 console.log(store.getState())
 // Прекратим слушать обновление состояния
 //unsubscribe()

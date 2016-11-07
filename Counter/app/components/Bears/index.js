@@ -4,8 +4,8 @@ import { Container, Header, Title, Content, Text, List, ListItem, Card, CardItem
 
 import { openDrawer } from '../../actions/drawer';
 import { pushNewRoute } from '../../actions/route';
-import { searchBears } from '../../actions/bluetooth';
-import { setConnectedBearName } from '../../actions/bear';
+import { searchBears, connectToDevice } from '../../actions/bluetooth';
+import { setConnectedBearName, setBearStories } from '../../actions/bear';
 
 import styles from './styles';
 import myTheme from '../../themes/base-theme';
@@ -15,13 +15,16 @@ class Bears extends Component {
         openDrawer: React.PropTypes.func,
         pushNewRoute: React.PropTypes.func,
         searchBears: React.PropTypes.func,
-        setConnectedBearName: React.PropTypes.func
+        setConnectedBearName: React.PropTypes.func,
+        connectToDevice: React.PropTypes.func,
+        setBearStories: React.PropTypes.func
     };
 
     constructor(props) {
         super(props);
     }
-    onBearClick(name) {
+    onBearClick(name, id) {
+        this.props.connectToDevice(id);
         this.props.setConnectedBearName(name);
         this.props.pushNewRoute('bear-profile');
     }
@@ -40,7 +43,7 @@ class Bears extends Component {
                 <Content>
                 <List dataArray={bears}
                       renderRow={(item) =>
-                            <ListItem button onPress={()=>{this.onBearClick(item.name)}}>
+                            <ListItem button onPress={()=>{this.onBearClick(item.name, item.id)}}>
                              <Text>id: {item.id}</Text>
                                 <Text>{item.name}</Text>
                             </ListItem>
@@ -67,7 +70,9 @@ const mapDispatchToProps = (dispatch) => {
         openDrawer: () => dispatch(openDrawer()),
         pushNewRoute: route => dispatch(pushNewRoute(route)),
         setConnectedBearName: name => dispatch(setConnectedBearName(name)),
-        searchBears: () => dispatch(searchBears([{"id": 1, "name": "HC-Mishka"}, {"id": 2, "name": "Vrunishka"}, {"id": 3, "name": "HC-Hrun"}]))
+        searchBears: () => dispatch(searchBears()),
+        connectToDevice: (id) => dispatch(connectToDevice(id)),
+        setBearStories: () => dispatch(setBearStories())
     }
 };
 
