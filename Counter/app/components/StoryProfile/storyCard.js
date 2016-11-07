@@ -7,7 +7,7 @@ const illustration_default = require('../../../img/illustration2.jpg');
 export default class StoryCard extends Component {
 
   render() {
-    const { name, illustration, price, description, onBuyClick, onUploadClick, onDeleteClick, isUpload, isBought, logo, category, isConnected, onConnectBear   } = this.props;
+    const { name, illustration, price, description, onBuyClick, onUploadClick, onDeleteClick, isUpload, isBought, logo, category, isConnected, onConnectBear, onPlay, isPlaying, onPause   } = this.props;
     return (
         <Card style={[styles.mb, { flex: 0 }]}>
 
@@ -21,9 +21,12 @@ export default class StoryCard extends Component {
                 <Image style={{ resizeMode: 'cover', width: null}} source={illustration}/>
 
                 <View style={{ flexDirection:'row'}}>
-                    <Button style={{ margin: 6, marginLeft:0, flex:1}}>
+                    {isUpload ? <Button style={{ margin: 6, marginLeft:0, flex:1}} onPress={onPlay}>
                         <Icon name="ios-play" style={{ color: '#fff', margin: 5 }}/>
-                    </Button>
+                    </Button> : null}
+                    {isPlaying ? <Button style={{ margin: 6, marginLeft:0, flex:1}} onPress={onPause}>
+                        <Icon name="ios-pause" style={{ color: '#fff', margin: 5 }}/>
+                    </Button> : null}
 
                     <View style={{flex:7}}>
                         {/* <SliderContainer caption=''>
@@ -40,6 +43,7 @@ export default class StoryCard extends Component {
                     </View>
 
                 </View>
+
                 <View style={{ flexDirection:'row'  }}>
                     {!isBought ?
                         <Button style={{ margin: 6, marginLeft:0, flex: 2}}
@@ -51,7 +55,7 @@ export default class StoryCard extends Component {
                             }
                         </Button>
                         :  !isConnected ?
-                            <Button style={{ margin: 6, marginLeft:0, flex:2, color:'#F06292'}} onPress={onConnectBear}>
+                            <Button style={{ margin: 6, marginLeft:0, flex:2, backgroundColor:'#F06292'}} onPress={onConnectBear}>
                                 Примедведиться
                             </Button>
                         : isUpload ?
@@ -86,6 +90,9 @@ StoryCard.propTypes = {
     onUploadClick: React.PropTypes.func,
     onDeleteClick: React.PropTypes.func,
     onConnectBear: React.PropTypes.func,
+    onPlay: React.PropTypes.func,
+    onPause: React.PropTypes.func,
+    isPlaying: React.PropTypes.func,
     isUpload: React.PropTypes.bool,
     isBought: React.PropTypes.bool,
     isConnected: React.PropTypes.bool,

@@ -7,6 +7,7 @@ import { popRoute } from '../actions/route';
 import myTheme from '../themes/base-theme';
 import StorePage from './StoryList';
 import { PossiblePurposes } from '../actions/actionTypes'
+import Alarm from '../components/BearProfile/alarmPage'
 class Store extends Component {
 
   static propTypes = {
@@ -28,7 +29,7 @@ class Store extends Component {
         </Header>
 
         <View>
-          <Tabs locked>
+            <Tabs locked>
             {categories.map(category =>
                   <StorePage
                       key={category.id}
@@ -37,7 +38,9 @@ class Store extends Component {
                       stories={stories}
                       content={content}
                       />
-          )}
+
+          )
+            }
           </Tabs>
         </View>
       </Container>

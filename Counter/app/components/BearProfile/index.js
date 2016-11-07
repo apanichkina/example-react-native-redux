@@ -11,6 +11,7 @@ import TabTwo from './alarmPage';
 import TabThree from './helperPage.js';
 import ActionButton from 'react-native-action-button';
 import StoryList from '../../containers/StoryList';
+import Alarm from './alarmPage'
 class BProfile extends Component {
 
     static propTypes = {
@@ -47,6 +48,7 @@ class BProfile extends Component {
                                     content={'BEAR'}
                                     />
                         )}
+
                     </Tabs>
                 </Content>
             </Container>

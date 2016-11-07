@@ -2,7 +2,9 @@
 
 const initialState = {
     bearStories: [],
-    connectedBearName: ''
+    connectedBearName: '',
+    storyIsPlaying: false,
+    storyIsPaused: false
 };
 
 export default function (state = initialState, action={}) {
@@ -27,6 +29,16 @@ export default function (state = initialState, action={}) {
             if (index >= 0) bearStories.splice(index,1);
             return {
                 bearStories: bearStories
+            };
+        case 'PLAY_STORY':
+            return {
+                ...state,
+                storyIsPlaying: true
+            };
+        case 'PAUSE_STORY':
+            return {
+                ...state,
+                storyIsPaused: true
             };
         default:
             return state

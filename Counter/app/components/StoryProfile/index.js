@@ -7,7 +7,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { openDrawer } from '../../actions/drawer';
 import { popRoute, pushNewRoute } from '../../actions/route';
 import { buyStory } from '../../actions/store';
-import { uploadStoryToBear, deleteStoryFromBear } from '../../actions/bear';
+import { uploadStoryToBear, deleteStoryFromBear, playStoryOnBear, pauseStoryOnBear } from '../../actions/bear';
 import { fetchBuyStory } from '../../actions/store';
 import StoryCard from './storyCard'
 import styles from './styles';
@@ -26,7 +26,7 @@ class SProfile extends Component {
   static propTypes = {
     popRoute: React.PropTypes.func,
       pushNewRoute: React.PropTypes.func,
-    openDrawer: React.PropTypes.func,
+    openDrawer: React.PropTypes.func
   };
 
   popRoute() {
@@ -39,6 +39,17 @@ class SProfile extends Component {
     this.props.buyStory(id);
 
   }
+  playStory(id) {
+        console.log('play'+id);
+        this.props.playStoryOnBear(id);
+
+  }
+    pauseStory(id) {
+        console.log('pause'+id);
+        this.props.pauseStoryOnBear(id);
+
+    }
+
   uploadStory(id) {
       console.log('upload'+id);
       this.props.uploadStoryToBear(id);
@@ -53,7 +64,7 @@ class SProfile extends Component {
   }
 
   render() {
-    const { story, isBought, category, isUpload, isConnected} = this.props;
+    const { story, isBought, category, isUpload, isConnected, isPlaying} = this.props;
       let logo = '';
       switch(category) {
           case "сказки":
@@ -86,6 +97,9 @@ class SProfile extends Component {
                 onUploadClick={()=>{this.uploadStory(story.id)}}
                 onDeleteClick={()=>{this.deleteStory(story.id)}}
                 onConnectBear={()=>{this.connectBear()}}
+                onPlay={()=>{this.playStory(story.id)}}
+                onPause={()=>{this.pauseStory(story.id)}}
+                isPlaying={isPlaying}
                 isUpload={isUpload}
                 isConnected={isConnected}
                 isBought={isBought}
@@ -112,13 +126,16 @@ const mapStateToProps = (state) => {
     isBought: !!state.storyFromServer.USER.stories[state.story.storyId],
     isUpload: findElementByValue(state.bear.bearStories,state.story.storyId),
     category: state.storyCategory.categoryFilter,
-    isConnected: !!state.bluetooth.bluetoothConnected
+    isConnected: !!state.bluetooth.bluetoothConnected,
+      isPlaying: state.bear.storyIsPlaying
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
       buyStory: id => dispatch(fetchBuyStory(id)),
+      playStoryOnBear: id => dispatch(playStoryOnBear(id)),
+      pauseStoryOnBear: id => dispatch(pauseStoryOnBear(id)),
       uploadStoryToBear: id => dispatch(uploadStoryToBear(id)),
       deleteStoryFromBear: id => dispatch(deleteStoryFromBear(id)),
       openDrawer: () => dispatch(openDrawer()),
